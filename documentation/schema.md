@@ -34,7 +34,7 @@
 | -------------- | ------------ | --------------------- |
 | id             | integer      | primary key, not null |
 | parentId       | integer      | not null              |
-| childId        | integer      | not null              |
+| childId        | integer      | nullable              |
 
 ## Files
 

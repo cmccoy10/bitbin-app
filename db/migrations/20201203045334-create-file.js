@@ -1,35 +1,29 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('Files', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
+      fileName: {
         allowNull: false,
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING
       },
-      lastName: {
+      itemUrl: {
         allowNull: false,
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING
       },
-      email: {
+      folderId: {
         allowNull: false,
-        type: Sequelize.STRING(255),
-        unique: true,
+        type: Sequelize.INTEGER,
+        references: { model: "Folders" }
       },
-      hashedPassword: {
+      pinned: {
         allowNull: false,
-        type: Sequelize.STRING(60).BINARY,
-      },
-      avatarUrl: {
-        type: Sequelize.STRING,
-      },
-      tokenId: {
-        type: Sequelize.STRING(36),
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -41,7 +35,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface) => {
-    return queryInterface.dropTable('Users');
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('files');
   }
 };
