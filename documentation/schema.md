@@ -27,6 +27,7 @@
 | name           | varchar(50)  | not null              |
 | pinned         | boolean      | not null              |
 | ownerId        | integer      | not null              |
+| isDefault      | boolean      | not null              |
 
 ## ParentFolders
 
