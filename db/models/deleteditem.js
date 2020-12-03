@@ -1,9 +1,16 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const DeletedItem = sequelize.define('DeletedItem', {
-    userId: DataTypes.INTEGER,
-    fileId: DataTypes.INTEGER,
-    folderId: DataTypes.INTEGER
+    userId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
+    fileId: {
+        type: DataTypes.INTEGER,
+    },
+    folderId: {
+        type: DataTypes.INTEGER
+    }
   }, {});
   DeletedItem.associate = function(models) {
     DeletedItem.belongsTo(models.User, {

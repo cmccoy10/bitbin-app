@@ -1,8 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const ParentFolder = sequelize.define('ParentFolder', {
-    parentId: DataTypes.INTEGER,
-    childId: DataTypes.INTEGER
+    parentId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
+    childId: {
+        type: DataTypes.INTEGER
+    }
   }, {});
   ParentFolder.associate = function(models) {
     ParentFolder.belongsTo(models.Folder, {

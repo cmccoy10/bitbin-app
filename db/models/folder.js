@@ -1,9 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Folder = sequelize.define('Folder', {
-    name: DataTypes.STRING,
-    pinned: DataTypes.BOOLEAN,
-    ownerId: DataTypes.INTEGER
+    name: {
+        allowNull: false,
+        type: DataTypes.STRING(50),
+    },
+    pinned: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+    },
+    ownerId: {
+        allowNull: false,
+        type: DataTypes.INTEGER
+    }
   }, {});
   Folder.associate = function(models) {
     Folder.hasMany(models.ParentFolder, {

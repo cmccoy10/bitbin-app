@@ -1,10 +1,22 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const File = sequelize.define('File', {
-    fileName: DataTypes.STRING,
-    itemUrl: DataTypes.STRING,
-    folderId: DataTypes.INTEGER,
-    pinned: DataTypes.BOOLEAN
+    fileName: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    itemUrl: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    folderId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
+    pinned: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN
+    }
   }, {});
   File.associate = function(models) {
     File.belongsTo(models.Folder, {
