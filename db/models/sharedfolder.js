@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   SharedFolder.associate = function(models) {
-    SharedFolder.belongsToMany(models.User, {
+    SharedFolder.belongsTo(models.User, {
         foreignKey: "userId"
     });
 
-    SharedFolder.belongsToMany(models.Folder, {
+    SharedFolder.belongsTo(models.Folder, {
         foreignKey: "folderId"
     });
   };
