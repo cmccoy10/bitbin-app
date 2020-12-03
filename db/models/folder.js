@@ -12,7 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
         allowNull: false,
         type: DataTypes.INTEGER
-    }
+    },
+    isDefault: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN
+    },
+    previousParentId: {
+        type: DataTypes.INTEGER
+    },
   }, {});
   Folder.associate = function(models) {
     Folder.hasMany(models.ParentFolder, {

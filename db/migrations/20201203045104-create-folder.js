@@ -21,6 +21,13 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Users" }
       },
+      isDefault: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
+      previousParentId: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

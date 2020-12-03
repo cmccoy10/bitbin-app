@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     pinned: {
         allowNull: false,
         type: DataTypes.BOOLEAN
+    },
+    previousFolderId: {
+        type: DataTypes.INTEGER
     }
   }, {});
   File.associate = function(models) {

@@ -25,6 +25,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      previousFolderId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
