@@ -16,7 +16,17 @@
 4. Move File and Folder Locations
     * Ability to move files or folders into a different folder location to "Deleted files"
 5. UI Design
-
+    * Landing Page
+        * User login/registration
+    * Homepage/Main Page
+        * Side Nav Panel
+            * Persistent
+            * Home link
+            * All Files link
+            * Deleted Files link
+        * Right Panel
+            * Header that contains page title and user menu dropdown
+            * Main Content
 6. Stretch Goals
     * Shared Folders/Files
     * CloudFront
