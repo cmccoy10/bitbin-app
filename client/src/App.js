@@ -1,30 +1,45 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import React, { useState, useEffect, } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { CssBaseline } from "@material-ui/core";
+import Theme from './components/Theme/Theme';
+import { ProtectedRoute, PrivateRoute } from './util.js/route-util';
+import Main from './components/Main';
+import LoginForm from './components/Login/LoginForm';
+import SignUpForm from './components/Login/SignUpForm';
+import { loadToken } from './store/ducks/authentication';
 
-import UserList from './components/UsersList';
+const App = ({ needLogin, loadToken, socket }) => {
+  const [loaded, setLoaded] = useState(false);
 
+  useEffect(() => {
+    setLoaded(true);
+    loadToken();
+  }, []);
 
-function App() {
+  if (!loaded) {
+    return null;
+  }
 
   return (
-    <BrowserRouter>
-        <nav>
-            <ul>
-                <li><NavLink to="/" activeClass="active">Home</NavLink></li>
-                <li><NavLink to="/users" activeClass="active">Users</NavLink></li>
-            </ul>
-        </nav>
-        <Switch>
-            <Route path="/users">
-                <UserList />
-            </Route>
+  <BrowserRouter>
+    <CssBaseline />
+    <Theme>
+      <Switch>
+        <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
+        <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
+        <PrivateRoute path="/" needLogin={needLogin} component={Main} />
+        <Redirect to="/" needLogin={needLogin} component={Main}/>
+      </Switch>
+    </Theme>
+  </BrowserRouter>
+)};
 
-            <Route path="/">
-                <h1>My Home Page</h1>
-            </Route>
-        </Switch>
-    </BrowserRouter>
-  );
-}
+const AppContainer = () => {
+  const needLogin = useSelector((state) => !state.authentication.token);
+  const dispatch = useDispatch();
+  return <App needLogin={needLogin} loadToken={() => dispatch(loadToken())} />;
+};
 
-export default App;
+export default AppContainer;

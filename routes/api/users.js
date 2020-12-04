@@ -1,13 +1,19 @@
-const express = require('express');
-const asyncHandler = require('express-async-handler');
-
-const { User } = require('../../db/models');
-
+const express = require("express");
+const { check } = require("express-validator");
+const { asyncHandler, handleValidationErrors } = require("../../utils");
+const { getUserToken, requireAuth } = require("../../auth");
 const router = express.Router();
+const { User } = require("../../db/models");
 
-router.get('/', asyncHandler(async function (req, res, next) {
-    const users = await User.findAll();
-    res.json({ users });
-}));
+
+router.get(
+  "/:id",
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const userId = parseInt(req.params.id, 10);
+    const { id, username } = await User.findByPk(userId);
+    res.json({ user: { id, username } });
+  })
+);
 
 module.exports = router;

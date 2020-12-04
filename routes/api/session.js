@@ -1,51 +1,62 @@
-const express = require('express');
-const asyncHandler = require('express-async-handler');
-const { authenticated, generateToken } = require('./security-utils');
-const { validateEmailAndPassword, validationResult } = require('../../validations');
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const { check } = require("express-validator");
+const { asyncHandler, handleValidationErrors } = require("../../utils");
+const { getUserToken, requireAuth } = require("../../auth");
+const router = express.Router();
 const { User } = require("../../db/models");
 
 
-const router = express.Router();
+const validateEmailAndPassword = [
+    check("email")
+      .exists({ checkFalsy: true })
+      .isEmail()
+      .withMessage("Please provide a valid email."),
+    check("password")
+      .exists({ checkFalsy: true })
+      .withMessage("Please provide a password."),
+    handleValidationErrors,
+  ];
 
+  router.post(
+    "/",
+    validateEmailAndPassword,
+    asyncHandler(async (req, res) => {
+      const { firstName, lastName, email, password } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await User.create({ firstName, lastName, email, hashedPassword });
 
-router.put(
-  '/',
-  validateEmailAndPassword,
-  asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next({ status: 422, errors: errors.array() });
-    }
+      const token = getUserToken(user);
+      res.cookie("token", token);
+      res.status(201).json({
+        user: { id: user.id },
+        token,
+      });
+    })
+  );
 
-    async function findByEmail(email) {
-        const user = await User.findOne({ where: { email } });
-        return user || new NullUser();
-    }
+  router.put(
+    "/",
+    validateEmailAndPassword,
+    asyncHandler(async (req, res, next) => {
+      const { email, password } = req.body;
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
 
-    const { email, password } = req.body;
-    const user = await findByEmail(email);
-    if (!user.isValidPassword(password)) {
-      const err = new Error('Login failed');
-      err.status = 401;
-      err.title = 'Login failed';
-      err.errors = ['Invalid credentials'];
-      return next(err);
-    }
-    const { jti, token } = generateToken(user);
-    user.tokenId = jti;
-    await user.save();
-    res.json({ token, user: user.toSafeObject() });
-  })
-);
+      if (!user || !user.validatePassword(password)) {
+        const err = new Error("Login failed");
+        err.status = 401;
+        err.title = "Login failed";
+        err.errors = ["The provided credentials were invalid."];
+        return next(err);
+      }
+      const token = getUserToken(user);
+      res.cookie("token", token);
+      res.json({ token, user: { id: user.id } });
+    })
+  );
 
-router.delete(
-  '/',
-  [authenticated],
-  asyncHandler(async (req, res) => {
-    req.user.tokenId = null;
-    await req.user.save();
-    res.json({ message: 'success' });
-  })
-);
-
-module.exports = router;
+  module.exports = router;
