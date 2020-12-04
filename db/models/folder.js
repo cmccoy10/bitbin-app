@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER
     },
-    isDefault: {
+    isTrashBin: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN
+    },
+    isRoot: {
         allowNull: false,
         type: DataTypes.BOOLEAN
     },

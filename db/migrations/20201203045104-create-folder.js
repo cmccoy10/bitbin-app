@@ -21,7 +21,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Users" }
       },
-      isDefault: {
+      isTrashBin: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
+      isRoot: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
       },
@@ -39,6 +43,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('folders');
+    return queryInterface.dropTable('Folders');
   }
 };

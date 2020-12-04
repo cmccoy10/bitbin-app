@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('parentfolders');
+    return queryInterface.dropTable('ParentFolders');
   }
 };

@@ -37,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "ownerId"
     })
 
-
     User.hasMany(models.SharedFolder, {
         foreignKey: "userId"
     })
