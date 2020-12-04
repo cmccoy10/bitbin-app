@@ -9,18 +9,21 @@
             firstName,
             lastName,
             avatarUrl
-        }
+        },
+        currentUser: id
     },
     folders: {
         folderId: {
             id,
             name,
             pinned,
-            isDefault,
+            isTrashBin,
+            isRoot,
             ownerId,
             sharedUsers: [ids]
             parentId,
-            children: [ids]
+            children: [ids],
+            previousParentId
         }
     },
     files: {
@@ -29,10 +32,11 @@
             fileName,
             itemUrl,
             folderId,
-            pinned
+            pinned,
+            previousFolderId
         }
     },
-    deletedItems: {
+    trashBin: {
         files: {
             fileId: {
                 id,
@@ -48,16 +52,3 @@
     }
 }
 ```
-
-
-Order of Migrations
-
-Users - without bottom foreign keys
-Folders
-ParentFolders
-SharedFolders
-Files
-
-Add 2 Columns for Users table after
-
-Cascade on Delete for Folders

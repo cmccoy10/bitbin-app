@@ -34,15 +34,15 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     User.hasMany(models.Folder, {
-        foreignKey: "ownerId"
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
+        hooks: true,
     })
 
     User.hasMany(models.SharedFolder, {
-        foreignKey: "userId"
-    })
-
-    User.hasMany(models.DeletedItem, {
-        foreignKey: "userId"
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+        hooks: true,
     })
   }
   return User;

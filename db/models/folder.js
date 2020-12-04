@@ -28,7 +28,9 @@ module.exports = (sequelize, DataTypes) => {
   Folder.associate = function(models) {
     Folder.hasMany(models.ParentFolder, {
         as: "parent",
-        foreignKey: "parentId"
+        foreignKey: "parentId",
+        onDelete: "CASCADE",
+        hooks: true,
     });
 
     Folder.hasOne(models.ParentFolder, {
@@ -37,15 +39,15 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Folder.hasMany(models.File, {
-        foreignKey: "folderId"
+        foreignKey: "folderId",
+        onDelete: "CASCADE",
+        hooks: true,
     });
 
     Folder.hasMany(models.SharedFolder, {
-        foreignKey: "folderId"
-    });
-
-    Folder.hasMany(models.DeletedItem, {
-        foreignKey: "folderId"
+        foreignKey: "folderId",
+        onDelete: "CASCADE",
+        hooks: true,
     });
 
     Folder.belongsTo(models.User, {

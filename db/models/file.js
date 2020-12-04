@@ -25,10 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     File.belongsTo(models.Folder, {
         foreignKey: "folderId"
     });
-
-    File.hasMany(models.DeletedItem, {
-        foreignKey: "fileId"
-    });
   };
   return File;
 };
