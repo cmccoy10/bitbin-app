@@ -3,29 +3,35 @@
     authentication: {
         token: token
     },
+
     users: {
         userId: {
             id,
             firstName,
             lastName,
-            avatarUrl
+            avatarUrl,
+            trashBinId,
+            personalFolderId
         },
         currentUser: id
     },
+
     folders: {
         folderId: {
             id,
             name,
             pinned,
-            isTrashBin,
-            isRoot,
             ownerId,
-            sharedUsers: [ids]
+            sharedUsers: [ {userId:id, userName: name} ],
             parentId,
-            children: [ids],
             previousParentId
         }
     },
+
+    currentFolder: id,
+
+    breadcrumbs: [ {folderId: id, folderName: name} ],
+
     files: {
         fileId: {
             id,
@@ -36,19 +42,5 @@
             previousFolderId
         }
     },
-    trashBin: {
-        files: {
-            fileId: {
-                id,
-                userId
-            }
-        },
-        folders: {
-            folderId: {
-                id,
-                userId
-            }
-        }
-    }
 }
 ```

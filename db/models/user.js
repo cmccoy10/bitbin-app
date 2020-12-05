@@ -29,6 +29,12 @@ module.exports = (sequelize, DataTypes) => {
     avatarUrl: {
       type: DataTypes.STRING
     },
+    trashBinId: {
+      type: DataTypes.INTEGER,
+    },
+    personalFolderId: {
+      type: DataTypes.INTEGER,
+    },
   }, {});
 
   User.associate = function(models) {

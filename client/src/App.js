@@ -10,7 +10,7 @@ import LoginForm from './components/Login/LoginForm';
 import SignUpForm from './components/Login/SignUpForm';
 import { loadToken } from './store/ducks/authentication';
 
-const App = ({ needLogin, loadToken, socket }) => {
+const App = ({ needLogin, loadToken }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {

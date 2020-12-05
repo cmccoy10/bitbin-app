@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { jwtConfig } = require("./config");
 const { User } = require("./db/models");
+const bearerToken = require("express-bearer-token");
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -61,4 +62,6 @@ const restoreUser = (req, res, next) => {
 
 const requireAuth = [restoreUser];
 
-module.exports = { getUserToken, requireAuth };
+const authenticated = [bearerToken(), restoreUser];
+
+module.exports = { getUserToken, requireAuth, authenticated };
