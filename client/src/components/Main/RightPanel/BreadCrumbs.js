@@ -8,9 +8,11 @@ import { Link, NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     headerContainer: {
+        width: "100%",
         display: "flex",
         flexDirection: "row",
-        padding: "",
+        paddingLeft: "3em",
+        paddingRight: "3em",
         justifyContent: "space-between",
     },
     small: {
