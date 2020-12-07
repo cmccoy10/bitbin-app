@@ -18,4 +18,3 @@
     - PUT /files
     - DELETE /files/:id/deleted => creates a relationship between a file and the DeletedItems table
     - DELETE /files/:id => deletes a file from S3 and also removes it from the Files table
-- deletedItems

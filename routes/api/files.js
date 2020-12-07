@@ -13,8 +13,6 @@ const router = express.Router();
 const AWS = require("aws-sdk");
 const { awsKeys } = require("../../config");
 
-console.log("\n\n", awsKeys);
-
 // Updating config for S3
 AWS.config.update({
     secretAccessKey: awsKeys.secretAccessKey,
