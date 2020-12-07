@@ -1,50 +1,31 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../store/ducks/authentication';
-import { useState } from 'react';
-import { uploadFile } from '../../store/ducks/file';
+import { makeStyles } from '@material-ui/core/styles';
+import LeftNavPanel from './LeftNavPanel';
+import RightPanel from './RightPanel/RightPanel';
+import "./Main.css"
 
+
+// const useStyles = makeStyles((theme) => ({
+//     leftNavPanel: {
+//         border: "thin solid black"
+//     },
+//     rightNavPanel: {
+//         border: "thin solid black"
+//     },
+// }));
 
 const Main = () => {
-    const dispatch = useDispatch();
-    const [file, setFile] = useState("");
+    // const dispatch = useDispatch();
 
-    const handleClick = async () => {
-        await dispatch(logout());
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = new FormData();
-        data.append("file", file);
-        data.append("folderId", 1);
-
-        console.log("File", file)
-        console.log(data)
-
-        dispatch(uploadFile(data));
-    }
-
+    // const classes = useStyles();
     return (
-        <div>
-            <h1>Home Page</h1>
-            <div>
-                <button onClick={handleClick}>Logout</button>
+        <div className="mainContainer">
+            <div className="leftNavPanel">
+                <LeftNavPanel/>
             </div>
-            <div>
-                <button>
-                    <a href="https://bitbin-files.s3.us-east-2.amazonaws.com/w7-study-guide.pdf"> View PDF</a>
-                </button>
-            </div>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="file"
-                        placeholder="Upload file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                    />
-                        <button type="submit">Upload File</button>
-                </form>
+            <div className="rightPanel">
+                <RightPanel/>
             </div>
         </div>
     );

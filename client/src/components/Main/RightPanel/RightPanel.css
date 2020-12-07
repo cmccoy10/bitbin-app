@@ -1,0 +1,26 @@
+.rightPanelContainer {
+    display: grid;
+    grid-template-columns: 1fr 17em;
+    grid-template-rows: 8em 1fr;
+    height: 100%;
+    width: 100%;
+}
+
+.breadCrumbsContainer {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    border: thin solid black;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.folderViewContainer {
+    border: thin solid black
+}
+
+.newDataPanelContainer {
+    border: thin solid black
+}

@@ -18,9 +18,11 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: latoRegular,
-    color: "#FFFFFF"
-  }
+    fontFamily: [
+      'Work Sans',
+      'sans-serif',
+    ].join(','),
+  },
 });
 
 const Theme = props => {
