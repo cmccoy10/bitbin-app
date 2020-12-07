@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { CssBaseline } from "@material-ui/core";
 import Theme from './components/Theme/Theme';
 import { ProtectedRoute, PrivateRoute } from './util.js/route-util';
-import Main from './components/Main';
+import Main from './components/Main/Main';
 import LoginForm from './components/Login/LoginForm';
 import SignUpForm from './components/Login/SignUpForm';
 import { loadToken } from './store/ducks/authentication';

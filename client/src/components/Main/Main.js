@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../store/ducks/authentication';
+import { logout } from '../../store/ducks/authentication';
 import { useState } from 'react';
-import { uploadFile } from '../store/ducks/file';
+import { uploadFile } from '../../store/ducks/file';
 
 
 const Main = () => {
