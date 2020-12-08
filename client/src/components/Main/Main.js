@@ -6,7 +6,7 @@ import RightPanel from './RightPanel/RightPanel';
 import { useEffect } from 'react';
 import "./Main.css"
 import { setCurrentFolder } from '../../store/ducks/currentFolder';
-import { getFiles } from '../../store/ducks/folders';
+import { getFiles, getFolders } from '../../store/ducks/folders';
 
 
 const Main = () => {
@@ -15,6 +15,7 @@ const Main = () => {
     useEffect(() => {
         dispatch(setCurrentFolder(1));
         dispatch(getFiles())
+        dispatch(getFolders())
     }, []);
 
     return (
