@@ -36,6 +36,14 @@ router.post(
       const token = getUserToken(user);
       res.cookie("token", token);
       res.status(201).json({
+        userObj: {
+            "id": user.id,
+            "firstName": user.firstName,
+            "lastName": user.lastName,
+            "avatarUrl": user.avatarUrl,
+            "trashBinId": user.trashBinId,
+            "personalFolderId": user.personalFolderId
+        },
         user: { id: user.id },
         token,
       });

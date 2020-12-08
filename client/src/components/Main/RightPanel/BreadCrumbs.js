@@ -32,11 +32,9 @@ const BreadCrumbs = () => {
             </Box>
             <Box>
                 <Avatar
-                    variant="circle"
+                    variant="circular"
                     className={classes.small}
                     alt="user icon"
-                    // src={imgUrl}
-                    // ref={anchorRef}
                     aria-haspopup="true"
                 />
             </Box>

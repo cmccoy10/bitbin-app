@@ -26,7 +26,14 @@ router.put(
       }
       const token = getUserToken(user);
       res.cookie("token", token);
-      res.json({ token, user: { id: user.id } });
+      res.json({ token, user: { id: user.id }, userObj: {
+        "id": user.id,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "avatarUrl": user.avatarUrl,
+        "trashBinId": user.trashBinId,
+        "personalFolderId": user.personalFolderId
+      }});
     })
 );
 

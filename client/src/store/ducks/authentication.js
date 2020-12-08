@@ -1,4 +1,5 @@
 import { apiUrl } from '../../config/config';
+import { loadUser } from './users';
 
 const TOKEN_KEY = 'bitbin/authentication/token';
 const SET_TOKEN = 'bitbin/authentication/SET_TOKEN';
@@ -21,9 +22,12 @@ export const signUp = user => async dispatch => {
     body: JSON.stringify(user),
   });
   if (response.ok) {
-    const { token } = await response.json();
+    const { token, userObj } = await response.json();
+    const user = {};
+    user[userObj.id] = userObj
     window.localStorage.setItem(TOKEN_KEY, token);
     dispatch(setToken(token));
+    dispatch(loadUser(user));
   }
 }
 
@@ -35,9 +39,12 @@ export const login = (email, password) => async dispatch => {
   });
 
   if (response.ok) {
-    const { token } = await response.json();
+    const { token, userObj } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
+    const user = {};
+    user[userObj.id] = userObj
     dispatch(setToken(token));
+    dispatch(loadUser(user));
   }
 };
 
