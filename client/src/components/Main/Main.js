@@ -7,25 +7,21 @@ import { useEffect } from 'react';
 import "./Main.css"
 import { setCurrentFolder } from '../../store/ducks/currentFolder';
 import { getFiles, getFolders } from '../../store/ducks/folders';
+import { Route, useParams } from 'react-router-dom';
 
 
 const Main = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(setCurrentFolder(1));
-        dispatch(getFiles())
-        dispatch(getFolders())
-    }, []);
 
     return (
         <div className="mainContainer">
             <div className="leftNavPanel">
                 <LeftNavPanel/>
             </div>
-            <div className="rightPanel">
-                <RightPanel/>
-            </div>
+            <Route path="/folders/:id">
+                <div className="rightPanel">
+                    <RightPanel/>
+                </div>
+            </Route>
         </div>
     );
 }

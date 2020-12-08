@@ -49,23 +49,23 @@ const LeftNavPanel = () => {
                 <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
             </Box>
             <Box className={classes.homeContainer}>
-                <Link color="#000" className={classes.navLink}>
+                <NavLink to={"/"} color="#000" className={classes.navLink}>
                     <Typography variant="h6" className={classes.homeLink}>Home</Typography>
-                </Link>
+                </NavLink>
             </Box>
             <Box className={classes.filesHeader}>
                 <Typography variant="subtitle2" className={classes.listColor}>Files</Typography>
             </Box>
             <Box>
                 <Box className={classes.filesHeader}>
-                    <Link className={classes.navLink}>
+                    <NavLink to={"/personal"} className={classes.navLink}>
                         <Typography className={classes.listColor}>All files</Typography>
-                    </Link>
+                    </NavLink>
                 </Box>
                 <Box className={classes.filesHeader}>
-                    <Link className={classes.navLink}>
+                    <NavLink to={"/deleted"} className={classes.navLink}>
                         <Typography className={classes.listColor}>Deleted files</Typography>
-                    </Link>
+                    </NavLink>
                 </Box>
             </Box>
         </Box>
