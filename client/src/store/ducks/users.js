@@ -17,9 +17,9 @@ export const getUser = () => async (dispatch, getState) => {
         },
     });
     if (response.ok) {
-        const userObj = await response.json();
+        const { userObj } = await response.json();
         const user = {};
-
+        user[userObj.id] = userObj;
         dispatch(loadUser(user));
         return;
     }

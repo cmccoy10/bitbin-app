@@ -28,7 +28,7 @@ export const signUp = user => async dispatch => {
     const user = {};
     user[userObj.id] = userObj
     window.localStorage.setItem(TOKEN_KEY, token);
-    window.localStorege.setItem(USER_ID, userObj.id);
+    window.localStorage.setItem(USER_ID, userObj.id);
     dispatch(setToken(token));
   }
 }
@@ -42,16 +42,8 @@ export const login = (email, password) => async dispatch => {
 
   if (response.ok) {
     const { token, userObj } = await response.json();
-    console.log("STEP 1")
-    console.log("user object", userObj)
-    console.log("USER_ID", USER_ID)
-    console.log("STEP 2")
     window.localStorage.setItem(TOKEN_KEY, token);
-    console.log("STEP 3")
     window.localStorage.setItem(USER_ID, userObj.id);
-    console.log("STEP 4")
-    // const user = {};
-    // user[userObj.id] = userObj
     dispatch(setToken(token));
   }
 };
