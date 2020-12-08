@@ -9,13 +9,16 @@ import Main from './components/Main/Main';
 import LoginForm from './components/Login/LoginForm';
 import SignUpForm from './components/Login/SignUpForm';
 import { loadToken } from './store/ducks/authentication';
+import { getUser } from './store/ducks/users';
 
 const App = ({ needLogin, loadToken }) => {
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoaded(true);
     loadToken();
+    dispatch(getUser());
   }, []);
 
   if (!loaded) {

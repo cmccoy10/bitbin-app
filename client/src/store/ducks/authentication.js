@@ -1,7 +1,9 @@
 import { apiUrl } from '../../config/config';
-import { loadUser } from './users';
+import { USER_ID } from './users';
+
 
 const TOKEN_KEY = 'bitbin/authentication/token';
+
 const SET_TOKEN = 'bitbin/authentication/SET_TOKEN';
 const REMOVE_TOKEN = 'bitbin/authentication/REMOVE_TOKEN';
 
@@ -26,8 +28,8 @@ export const signUp = user => async dispatch => {
     const user = {};
     user[userObj.id] = userObj
     window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorege.setItem(USER_ID, userObj.id);
     dispatch(setToken(token));
-    dispatch(loadUser(user));
   }
 }
 
@@ -40,11 +42,17 @@ export const login = (email, password) => async dispatch => {
 
   if (response.ok) {
     const { token, userObj } = await response.json();
+    console.log("STEP 1")
+    console.log("user object", userObj)
+    console.log("USER_ID", USER_ID)
+    console.log("STEP 2")
     window.localStorage.setItem(TOKEN_KEY, token);
-    const user = {};
-    user[userObj.id] = userObj
+    console.log("STEP 3")
+    window.localStorage.setItem(USER_ID, userObj.id);
+    console.log("STEP 4")
+    // const user = {};
+    // user[userObj.id] = userObj
     dispatch(setToken(token));
-    dispatch(loadUser(user));
   }
 };
 

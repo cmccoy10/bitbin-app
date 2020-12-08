@@ -53,11 +53,18 @@ router.post(
 
 router.get(
   "/:id",
-  requireAuth,
+//   requireAuth,
   asyncHandler(async (req, res, next) => {
     const userId = parseInt(req.params.id, 10);
-    const { id, username } = await User.findByPk(userId);
-    res.json({ user: { id, username } });
+    const user = await User.findByPk(userId);
+    res.json({ userObj: {
+        "id": user.id,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "avatarUrl": user.avatarUrl,
+        "trashBinId": user.trashBinId,
+        "personalFolderId": user.personalFolderId
+    }});
   })
 );
 
