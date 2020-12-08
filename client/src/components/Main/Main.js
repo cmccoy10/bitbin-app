@@ -3,22 +3,20 @@ import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import LeftNavPanel from './LeftNavPanel';
 import RightPanel from './RightPanel/RightPanel';
+import { useEffect } from 'react';
 import "./Main.css"
+import { setCurrentFolder } from '../../store/ducks/currentFolder';
+import { getFiles } from '../../store/ducks/folders';
 
-
-// const useStyles = makeStyles((theme) => ({
-//     leftNavPanel: {
-//         border: "thin solid black"
-//     },
-//     rightNavPanel: {
-//         border: "thin solid black"
-//     },
-// }));
 
 const Main = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const classes = useStyles();
+    useEffect(() => {
+        dispatch(setCurrentFolder(1));
+        dispatch(getFiles())
+    }, []);
+
     return (
         <div className="mainContainer">
             <div className="leftNavPanel">

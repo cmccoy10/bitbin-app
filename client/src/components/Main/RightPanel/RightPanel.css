@@ -10,7 +10,7 @@
     grid-column-start: 1;
     grid-column-end: 3;
     display: flex;
-    border: thin solid black;
+    /* border: thin solid black; */
     height: 100%;
     width: 100%;
     align-items: center;
@@ -18,9 +18,9 @@
 }
 
 .folderViewContainer {
-    border: thin solid black
+    /* border: thin solid black */
 }
 
 .newDataPanelContainer {
-    border: thin solid black
+    /* border: thin solid black */
 }

@@ -39,7 +39,7 @@
             itemUrl,
             folderId,
             pinned,
-            previousFolderId
+            previousFolderId,
         }
     },
 }
