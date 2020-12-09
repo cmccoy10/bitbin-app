@@ -1,7 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Typography } from '@material-ui/core';
-
+import { Box, List, Typography, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolder, faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     folderContainer: {
@@ -17,13 +20,32 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FolderView = () => {
 
+const FolderView = () => {
+    const folders = useSelector(state => state.folders);
     const classes = useStyles()
     return (
         <Box className={classes.folderContainer}>
             <Box className={classes.folderHeader}>
                 <Typography variant="h6">Overview</Typography>
+            </Box>
+            <Box>
+                <List>
+                    {Object.values(folders).map(folder => {
+                        return (
+                        <Box>
+                            <ListItem>
+                            <ListItemIcon>
+                                <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={folder.name}
+                            />
+                            </ListItem>
+                        </Box>
+                        )
+                    })}
+                </List>
             </Box>
         </Box>
     );

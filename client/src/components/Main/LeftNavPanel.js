@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const LeftNavPanel = () => {
+    const user = useSelector(state => state.users);
 
     const classes = useStyles();
     return (
@@ -58,12 +60,12 @@ const LeftNavPanel = () => {
             </Box>
             <Box>
                 <Box className={classes.filesHeader}>
-                    <NavLink to={"/personal"} className={classes.navLink}>
+                    <NavLink to={`/folders/${user.personalFolderId}`} className={classes.navLink}>
                         <Typography className={classes.listColor}>All files</Typography>
                     </NavLink>
                 </Box>
                 <Box className={classes.filesHeader}>
-                    <NavLink to={"/deleted"} className={classes.navLink}>
+                    <NavLink to={`/folders/${user.trashBinId}`} className={classes.navLink}>
                         <Typography className={classes.listColor}>Deleted files</Typography>
                     </NavLink>
                 </Box>

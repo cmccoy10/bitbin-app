@@ -16,7 +16,7 @@ router.post(
       const user = await User.create({ firstName, lastName, email, hashedPassword });
 
       Folder.create({
-        "name": "trashBin",
+        "name": "Deleted files",
         "pinned": false,
         "ownerId": user.id,
         "isTrashBin": true,
@@ -24,7 +24,7 @@ router.post(
       }).then((trashBin) => user.trashBinId = trashBin.id)
 
       Folder.create({
-        "name": "root",
+        "name": "Personal",
         "pinned": false,
         "ownerId": user.id,
         "isTrashBin": false,

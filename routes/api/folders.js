@@ -35,4 +35,34 @@ router.get("/:id", asyncHandler(async(req, res) => {
 }));
 
 
+router.get("/:id/breadcrumbs", asyncHandler(async(req, res) => {
+    let childId = req.params.id;
+    let breadcrumbs = []
+    let currentFolder = await Folder.findByPk(childId);
+    breadcrumbs.unshift({"id": currentFolder.id, "name":currentFolder.name});
+
+    while (childId) {
+        const response = await ParentFolder.findOne({
+            where: {
+                childId
+            },
+            include: "parent",
+            attributes: []
+        });
+        if (!response) {
+            childId = null;
+            continue
+        }
+        let folder = {
+            "id": response.parent.id,
+            "name": response.parent.name
+        }
+        console.log("\n\nFolder Id", folder.id, "\n\n")
+        breadcrumbs.unshift(folder)
+        childId = folder.id;
+    }
+    return res.status(200).json(breadcrumbs)
+}));
+
+
 module.exports = router;
