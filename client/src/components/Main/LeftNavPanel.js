@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
 import { Link, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentFolder } from '../../store/ducks/currentFolder';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
 
 const LeftNavPanel = () => {
     const user = useSelector(state => state.users);
+    const dispatch = useDispatch();
+
+    const handleHome = () => {
+        dispatch(setCurrentFolder(null))
+    }
 
     const classes = useStyles();
     return (
@@ -51,7 +57,7 @@ const LeftNavPanel = () => {
                 <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
             </Box>
             <Box className={classes.homeContainer}>
-                <NavLink to={"/"} color="#000" className={classes.navLink}>
+                <NavLink to={"/"} color="#000" className={classes.navLink} onClick={handleHome}>
                     <Typography variant="h6" className={classes.homeLink}>Home</Typography>
                 </NavLink>
             </Box>

@@ -22,15 +22,16 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(3.5),
         height: theme.spacing(3.5),
     },
+    navLink: {
+        textDecoration: "none",
+        color: "black"
+    }
 }));
 
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
 
 const BreadCrumbs = ({ currentFolder }) => {
     const breadcrumbs = useSelector(state => state.breadcrumbs);
+    console.log("BREADCRUMBS\n\n", breadcrumbs)
 
     const classes = useStyles();
     return (
@@ -40,12 +41,11 @@ const BreadCrumbs = ({ currentFolder }) => {
                 <Breadcrumbs separator="›" aria-label="breadcrumb">
                     {breadcrumbs.map(folder => {
                         return (
-                        <Link href={`/folders/${folder.id}`}>
-                            <Typography>{folder.name}</Typography>
+                        <Link to={`/folders/${folder.id}`} className={classes.navLink} key={folder.id}>
+                            <Typography variant="h5">{folder.name}</Typography>
                         </Link>
                         )
                     })}
-                    <Typography color="textPrimary">Breadcrumb</Typography>
                 </Breadcrumbs>
             </Box>
             :

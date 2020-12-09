@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Avatar, Typography, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload, faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+import NewFolder from './modals/NewFolder';
+import { useState } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewDataPanel = () => {
+    const [open, setOpen] = useState(false)
+    const newFolderClick = () => {
+        setOpen(true);
+    };
+
+    const newFolderClose = () => {
+        setOpen(false);
+    };
+
     const classes = useStyles();
 
     return (
@@ -30,12 +41,13 @@ const NewDataPanel = () => {
                     <Typography className={classes.fontPadding}> Upload file</Typography>
                 </Box>
             </Button>
-            <Button className={classes.buttonStyle}>
+            <Button className={classes.buttonStyle} onClick={newFolderClick}>
                 <Box className={classes.newOption}>
                     <FontAwesomeIcon icon={faFolderPlus} size="lg" color="#0d2481"/>
                     <Typography className={classes.fontPadding}> New folder</Typography>
                 </Box>
             </Button>
+            <NewFolder open={open} onClose={newFolderClose}/>
         </Box>
     );
 };
