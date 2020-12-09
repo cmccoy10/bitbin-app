@@ -35,6 +35,14 @@ router.get("/:id", asyncHandler(async(req, res) => {
 }));
 
 
+router.post("/", asyncHandler(async(req, res) => {
+    const { name, ownerId, parentId } = req.body;
+    const folder = await Folder.create({ name, ownerId, parentId });
+    await ParentFolder.create({"parentId":parentId, "childId":folder.id })
+    return res.status(200).json(folder);
+}));
+
+
 router.get("/:id/breadcrumbs", asyncHandler(async(req, res) => {
     let childId = req.params.id;
     let breadcrumbs = []

@@ -9,11 +9,12 @@ import { TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
+import { createFolder } from '../../../../store/ducks/folders';
 
 
 const useStyles = makeStyles((theme) => ({
-    deleteButton: {
-      backgroundColor: "#e31c1b",
+    createButton: {
+      backgroundColor: "#0070e0",
       color: "white"
     },
     dialogTitleContainer: {
@@ -28,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 const NewFolder = (props) => {
     const [name, setName] = useState("");
-    const handleDelete = () => {
-        // dispatch(deleteNote({ id, notebook }));
-        // const nextNote = nextCurrentNote(id);
-        // dispatch(setCurrentNote(nextNote.id))
-        // props.onClose();
+    const dispatch = useDispatch();
+
+    const handleCreate = () => {
+        dispatch(createFolder({ name }));
+        props.onClose();
     }
 
     const updateName = (e) => {
@@ -56,16 +57,18 @@ const NewFolder = (props) => {
                 </DialogTitle>
                 <DialogContent>
                     <TextField
+                        fullWidth
                         required
                         id="outlined-required"
-                        label="Required"
+                        label="Folder name"
                         onChange={updateName}
                         variant="outlined"
+                        color="secondary"
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
-                    <Button className={classes.deleteButton} variant="contained" disableElevation onClick={handleDelete}>Delete</Button>
+                    <Button className={classes.createButton} variant="contained" disableElevation onClick={handleCreate} disabled={name === ""}>Create</Button>
                 </DialogActions>
             </Dialog>
         </div>

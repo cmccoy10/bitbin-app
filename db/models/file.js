@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     pinned: {
         allowNull: false,
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
     previousFolderId: {
         type: DataTypes.INTEGER

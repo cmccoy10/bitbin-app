@@ -50,6 +50,7 @@ export const login = (email, password) => async dispatch => {
 
 export const logout = () => async (dispatch, getState) => {
     window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.removeItem(USER_ID);
     dispatch(removeToken());
 }
 

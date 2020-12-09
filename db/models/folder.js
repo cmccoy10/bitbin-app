@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     pinned: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
     ownerId: {
         allowNull: false,
@@ -15,11 +16,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     isTrashBin: {
         allowNull: false,
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
     isRoot: {
         allowNull: false,
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
     previousParentId: {
         type: DataTypes.INTEGER
