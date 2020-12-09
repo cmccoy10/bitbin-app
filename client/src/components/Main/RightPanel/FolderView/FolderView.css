@@ -1,0 +1,7 @@
+.ellipsis {
+    border: none,
+}
+
+.ellipsis:hover {
+    cursor: pointer;
+}

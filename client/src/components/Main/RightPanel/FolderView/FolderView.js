@@ -1,12 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, List, Typography, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Box, List, Typography, ListItem, ListItemIcon, ListItemText, Divider, IconButton } from '@material-ui/core';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoreButton from './MoreButton/MoreButton';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         paddingTop: ".5em",
         paddingBottom: ".5em",
-        paddingLeft: ".5em"
+        paddingLeft: ".5em",
+        justifyContent: "space-between",
+        cursor: "",
+        "&:hover": {
+            background: "#e5e5e5",
+        },
     },
     listHeader: {
         paddingTop: "3em",
@@ -45,13 +51,23 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         paddingRight: ".5em"
     },
+    nameAndIcon: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    ellipsisContainer: {
+        paddingRight: ".5em",
+    },
 }));
 
 
 const FolderView = () => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
-    const classes = useStyles()
+    const classes = useStyles();
+
+
     return (
         <Box className={classes.folderContainer}>
             <Box className={classes.folderHeader}>
@@ -67,16 +83,21 @@ const FolderView = () => {
                 {Object.values(folders).map(folder => {
                     return (
                     <Box >
-                        <Link to={`/folders/${folder.id}`} className={classes.navLink}>
-                            <Box className={classes.folderListItem}>
-                                <Box className={classes.icon}>
-                                    <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                        <Box className={classes.folderListItem}>
+                            <Link to={`/folders/${folder.id}`} className={classes.navLink}>
+                                <Box className={classes.nameAndIcon}>
+                                    <Box className={classes.icon}>
+                                        <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                                    </Box>
+                                    <Box>
+                                        <Typography>{folder.name}</Typography>
+                                    </Box>
                                 </Box>
-                                <Box>
-                                    <Typography>{folder.name}</Typography>
-                                </Box>
+                            </Link>
+                            <Box className={classes.ellipsisContainer}>
+                                <MoreButton />
                             </Box>
-                        </Link>
+                        </Box>
                         <Divider />
                     </Box>
                     )
@@ -84,17 +105,22 @@ const FolderView = () => {
                 {Object.values(files).map(file => {
                     return (
                     <Box >
-                        <a href={file.itemUrl} className={classes.navLink}>
-                            <Box className={classes.folderListItem}>
-                                <Box className={classes.icon}>
-                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                        <Box className={classes.folderListItem}>
+                            <a href={file.itemUrl} className={classes.navLink}>
+                                <Box className={classes.nameAndIcon}>
+                                    <Box className={classes.icon}>
+                                        <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                                    </Box>
+                                    <Box>
+                                        <Typography>{file.fileName}</Typography>
+                                    </Box>
                                 </Box>
-                                <Box>
-                                    <Typography>{file.fileName}</Typography>
-                                </Box>
+                            </a>
+                            <Box className={classes.ellipsisContainer}>
+                                <MoreButton />
                             </Box>
-                            <Divider />
-                        </a>
+                        </Box>
+                        <Divider />
                     </Box>
                     )
                 })}
