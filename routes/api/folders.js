@@ -23,15 +23,26 @@ router.get("/:id", asyncHandler(async(req, res) => {
             parentId
         },
         include: "child",
-        attributes: []
+        attributes: ["parentId"]
     });
-    const files = {};
+    const folders = {};
     list.forEach(item => {
-        if (item.child){
-            files[item.child.id] = item.child
+        console.log("PARENT ID\n\n", item.parentId, "\n\n")
+        if (item.child) {
+            folders[item.child.id] =
+            {
+                "id": item.child.id,
+                "name": item.child.name,
+                "pinned": item.child.pinned,
+                "ownerId": item.child.ownerId,
+                "parentId": item.parentId,
+                "isTrashBin": item.child.isTrashBin,
+                "isRoot": item.child.isRoot,
+                "previousParentId": item.child.previousParentId
+            }
         }
     });
-    return res.status(200).json(files);
+    return res.status(200).json(folders);
 }));
 
 

@@ -3,6 +3,7 @@ import { Popover, Box, List, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoveFolder from './modals/MoveFolder';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +35,20 @@ const useStyles = makeStyles((theme) => ({
 
 const MoreButton = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [moveOpen, setMoveOpen] = useState(false)
     const file = props.file;
     const folder = props.folder;
+
+    const moveItemClick = () => {
+        setMoveOpen(true);
+        console.log("INSIDE FUNC - FILE", file)
+        console.log("INSIDE FUNC - FOLDER", folder)
+        console.log("move open ---", moveOpen)
+    };
+
+    const moveItemClose = () => {
+        setMoveOpen(false);
+    };
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -45,13 +58,31 @@ const MoreButton = (props) => {
         setAnchorEl(null);
     };
 
-    const handleRename = () => {
+    const handleEdit = () => {
         if (file) {
             props.setClickedFile(file.id);
             props.setFileName(file.fileName);
         } else {
             props.setClickedFolder(folder.id);
             props.setFolderName(folder.name);
+        }
+    }
+
+    const handleMoveOptionClick = () => {
+        if (file) {
+            props.setClickedFile(file.id);
+            moveItemClick();
+        } else {
+            props.setClickedFolder(folder.id);
+            moveItemClick();
+        }
+    }
+
+    const handleDeleteOptionClick = () => {
+        if (file) {
+            props.setClickedFile(file.id);
+        } else {
+            props.setClickedFolder(folder.id);
         }
     }
 
@@ -79,17 +110,18 @@ const MoreButton = (props) => {
                 }}
             >
                 <Box className={classes.popover}>
-                    <Box className={classes.popoverOption} onClick={handleRename}>
+                    <Box className={classes.popoverOption} onClick={handleEdit}>
                         <Typography>Rename</Typography>
                     </Box>
-                    <Box className={classes.popoverOption}>
+                    <Box className={classes.popoverOption} onClick={handleMoveOptionClick} >
                         <Typography>Move</Typography>
                     </Box>
-                    <Box className={classes.popoverOption}>
+                    <Box className={classes.popoverOption} onClick={handleDeleteOptionClick}>
                         <Typography>Delete</Typography>
                     </Box>
                 </Box>
             </Popover>
+            <MoveFolder moveOpen={moveOpen} onClose={moveItemClose} folder={folder} file={file}/>
         </>
     );
 };

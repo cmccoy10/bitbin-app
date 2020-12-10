@@ -122,7 +122,7 @@ const FolderView = () => {
                     return (
                     <Box key={folder.id}>
                         <Box className={classes.folderListItem}>
-                            {clickedFolder == folder.id ?
+                            {folderName && clickedFolder == folder.id ?
                                 <Box className={classes.nameAndIcon}>
                                     <Box className={classes.icon}>
                                         <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
@@ -157,7 +157,7 @@ const FolderView = () => {
                     return (
                     <Box key={file.id}>
                         <Box className={classes.folderListItem}>
-                            {clickedFile == file.id ?
+                            {fileName && clickedFile == file.id ?
                                 <Box className={classes.nameAndIcon}>
                                     <Box className={classes.icon}>
                                         <FontAwesomeIcon icon={faFileAlt} size="2x"/>
