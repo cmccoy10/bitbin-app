@@ -14,7 +14,7 @@ import { createFolder } from '../../../../store/ducks/folders';
 
 const useStyles = makeStyles((theme) => ({
     createButton: {
-      backgroundColor: "#0070e0",
+      background: "#0070e0",
       color: "white"
     },
     dialogTitleContainer: {

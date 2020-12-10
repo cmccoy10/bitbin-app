@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import MoveFolder from './modals/MoveFolder';
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const MoreButton = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [moveOpen, setMoveOpen] = useState(false)
+    const token = useSelector(state => state.authentication);
     const file = props.file;
     const folder = props.folder;
 
@@ -121,7 +123,7 @@ const MoreButton = (props) => {
                     </Box>
                 </Box>
             </Popover>
-            <MoveFolder moveOpen={moveOpen} onClose={moveItemClose} folder={folder} file={file}/>
+            <MoveFolder token={token} moveOpen={moveOpen} onClose={moveItemClose} folder={folder} file={file}/>
         </>
     );
 };
