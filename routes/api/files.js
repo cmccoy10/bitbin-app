@@ -60,6 +60,13 @@ router.post("/",
         });
 
         res.json({ file: newFile });
-    }))
+    }));
+
+    router.put("/:id/editName", asyncHandler(async(req, res) => {
+        const { fileName } = req.body;
+        const file = await File.findByPk(req.params.id);
+        await file.update({ fileName });
+        return res.status(200).json(file);
+    }));
 
     module.exports = router;

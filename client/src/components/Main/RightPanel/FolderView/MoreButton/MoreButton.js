@@ -6,19 +6,24 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    popover: {
+      height: "10em",
+      width: "7em",
       display: "flex",
+      flexDirection: "column",
+    //   justifyContent: "space-evenly",
+      paddingTop: "1em",
+      paddingBottom: "1em"
     },
-    avatar: {
-      marginLeft: "auto",
-      backgroundColor: theme.palette.primary.main,
-    },
-    list: {
-      borderTop: "1px solid #f2f2f2",
-      cursor: "pointer",
-      "&:hover": {
-        background: "#e5e5e5",
-      },
+    popoverOption: {
+        paddingTop: ".5em",
+        paddingBottom: ".5em",
+        paddingLeft: "1em",
+        paddingRight: "1em",
+        cursor: "pointer",
+        "&:hover": {
+            background: "#e5e5e5",
+        },
     },
     ellipsis: {
         border: "none",
@@ -27,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MoreButton = () => {
-    const classes = useStyles();
+const MoreButton = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const file = props.file;
+    const folder = props.folder;
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -38,8 +44,20 @@ const MoreButton = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleRename = () => {
+        if (file) {
+            props.setClickedFile(file.id);
+            props.setFileName(file.fileName);
+        } else {
+            props.setClickedFolder(folder.id);
+            props.setFolderName(folder.name);
+        }
+    }
+
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
+    const classes = useStyles();
 
     return (
         <>
@@ -60,14 +78,16 @@ const MoreButton = () => {
                 horizontal: "center",
                 }}
             >
-                <Box>
-                    <Typography>Rename</Typography>
-                </Box>
-                <Box>
-                    <Typography>Move</Typography>
-                </Box>
-                <Box>
-                    <Typography>Delete</Typography>
+                <Box className={classes.popover}>
+                    <Box className={classes.popoverOption} onClick={handleRename}>
+                        <Typography>Rename</Typography>
+                    </Box>
+                    <Box className={classes.popoverOption}>
+                        <Typography>Move</Typography>
+                    </Box>
+                    <Box className={classes.popoverOption}>
+                        <Typography>Delete</Typography>
+                    </Box>
                 </Box>
             </Popover>
         </>

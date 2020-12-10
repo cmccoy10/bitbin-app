@@ -1,13 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, List, Typography, ListItem, ListItemIcon, ListItemText, Divider, IconButton } from '@material-ui/core';
+import { Box, List, Typography, TextField, Divider, IconButton } from '@material-ui/core';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import MoreButton from './MoreButton/MoreButton';
+import { editFolder } from '../../../../store/ducks/folders';
+import { editFile } from '../../../../store/ducks/files';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,8 +67,44 @@ const useStyles = makeStyles((theme) => ({
 const FolderView = () => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
+    const [clickedFolder, setClickedFolder] = useState(null);
+    const [clickedFile, setClickedFile] = useState(null);
+    const [folderName, setFolderName] = useState(null);
+    const [fileName, setFileName] = useState(null);
+    const dispatch = useDispatch();
     const classes = useStyles();
 
+    const handleEdit = (e) => {
+        if (e.key === "Enter") {
+            if (clickedFolder) {
+                dispatch(editFolder({ "id":clickedFolder, "name":folderName }));
+                setClickedFolder(null);
+                setFolderName(null);
+            } else {
+                dispatch(editFile({ "id":clickedFile, "fileName":fileName }))
+                setClickedFile(null);
+                setFileName(null);
+            }
+        }
+    }
+
+    const handleChange = (e) => {
+        if (clickedFolder) {
+            setFolderName(e.target.value);
+        } else {
+            setFileName(e.target.value);
+        }
+    }
+
+    const handleEditCancel = () => {
+        if (clickedFolder) {
+            setClickedFolder(null);
+            setFolderName(null);
+        } else {
+            setClickedFile(null);
+            setFileName(null);
+        }
+    }
 
     return (
         <Box className={classes.folderContainer}>
@@ -82,20 +120,33 @@ const FolderView = () => {
             <Box className={classes.folderListContainer}>
                 {Object.values(folders).map(folder => {
                     return (
-                    <Box >
+                    <Box key={folder.id}>
                         <Box className={classes.folderListItem}>
-                            <Link to={`/folders/${folder.id}`} className={classes.navLink}>
+                            {clickedFolder == folder.id ?
                                 <Box className={classes.nameAndIcon}>
                                     <Box className={classes.icon}>
                                         <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
                                     </Box>
                                     <Box>
-                                        <Typography>{folder.name}</Typography>
+                                        <TextField color="secondary" defaultValue={folderName}
+                                            onKeyPress={handleEdit} onBlur={handleEditCancel}
+                                            onChange={handleChange}/>
                                     </Box>
                                 </Box>
-                            </Link>
+                                :
+                                <Link to={`/folders/${folder.id}`} className={classes.navLink}>
+                                    <Box className={classes.nameAndIcon}>
+                                        <Box className={classes.icon}>
+                                            <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                                        </Box>
+                                        <Box>
+                                            <Typography>{folder.name}</Typography>
+                                        </Box>
+                                    </Box>
+                                </Link>
+                            }
                             <Box className={classes.ellipsisContainer}>
-                                <MoreButton />
+                                <MoreButton folder={folder} setFolderName={setFolderName} setClickedFolder={setClickedFolder}/>
                             </Box>
                         </Box>
                         <Divider />
@@ -104,20 +155,33 @@ const FolderView = () => {
                 })}
                 {Object.values(files).map(file => {
                     return (
-                    <Box >
+                    <Box key={file.id}>
                         <Box className={classes.folderListItem}>
-                            <a href={file.itemUrl} className={classes.navLink}>
+                            {clickedFile == file.id ?
                                 <Box className={classes.nameAndIcon}>
                                     <Box className={classes.icon}>
                                         <FontAwesomeIcon icon={faFileAlt} size="2x"/>
                                     </Box>
                                     <Box>
-                                        <Typography>{file.fileName}</Typography>
+                                        <TextField color="secondary" defaultValue={fileName}
+                                        onKeyPress={handleEdit} onBlur={handleEditCancel}
+                                        onChange={handleChange}/>
                                     </Box>
                                 </Box>
-                            </a>
+                                :
+                                <a href={file.itemUrl} className={classes.navLink}>
+                                    <Box className={classes.nameAndIcon}>
+                                        <Box className={classes.icon}>
+                                            <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                                        </Box>
+                                        <Box>
+                                            <Typography>{file.fileName}</Typography>
+                                        </Box>
+                                    </Box>
+                                </a>
+                            }
                             <Box className={classes.ellipsisContainer}>
-                                <MoreButton />
+                                <MoreButton file={file} setFileName={setFileName} setClickedFile={setClickedFile}/>
                             </Box>
                         </Box>
                         <Divider />

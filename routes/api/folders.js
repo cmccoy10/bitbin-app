@@ -43,6 +43,14 @@ router.post("/", asyncHandler(async(req, res) => {
 }));
 
 
+router.put("/:id/editName", asyncHandler(async(req, res) => {
+    const { name } = req.body;
+    const folder = await Folder.findByPk(req.params.id);
+    await folder.update({ name });
+    return res.status(200).json(folder);
+}));
+
+
 router.get("/:id/breadcrumbs", asyncHandler(async(req, res) => {
     let childId = req.params.id;
     let breadcrumbs = []

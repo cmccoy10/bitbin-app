@@ -6,10 +6,12 @@ import { USER_ID } from './users';
 // Types
 const LOAD_FOLDERS = "bitbin/folders/load";
 const ADD_FOLDER = "bitbin/folders/add";
+const EDIT_FOLDER = "bitbin/folders/edit_name";
 
 // Actions
 export const loadFolders = (folders) => ({ type: LOAD_FOLDERS, folders });
 export const addFolder = (folder) => ({ type: ADD_FOLDER, folder });
+export const editFolderName = (folder) => ({ type: EDIT_FOLDER, folder });
 
 // Thunks
 export const getFiles = () => async (dispatch, getState) => {
@@ -60,13 +62,27 @@ export const createFolder = ({ name }) => async (dispatch, getState) => {
     });
     if (response.ok) {
         const folder = await response.json();
-        // const newFolder = {}
-        // newFolder[folder.id] = folder
         dispatch(addFolder(folder));
         return;
     }
 }
 
+export const editFolder = ({ id, name }) => async (dispatch, getState) => {
+    const { authentication: { token } } = getState();
+    const response = await fetch(`${apiUrl}/folders/${id}/editName`, {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name }),
+    });
+    if (response.ok) {
+        const folder = await response.json();
+        dispatch(editFolderName(folder));
+        return;
+    }
+}
 
 // Reducer
 export default function reducer(state = {}, action) {
@@ -75,6 +91,11 @@ export default function reducer(state = {}, action) {
             return { ...action.folders }
         }
         case ADD_FOLDER: {
+            let newState = { ...state };
+            newState[action.folder.id] = action.folder;
+            return newState;
+        }
+        case EDIT_FOLDER: {
             let newState = { ...state };
             newState[action.folder.id] = action.folder;
             return newState;
