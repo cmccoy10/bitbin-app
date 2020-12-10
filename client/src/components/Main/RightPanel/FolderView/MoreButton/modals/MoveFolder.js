@@ -53,10 +53,13 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: ".5em",
         paddingLeft: ".5em",
         justifyContent: "space-between",
-        cursor: "",
+        cursor: "pointer",
         "&:hover": {
             background: "#e5e5e5",
         },
+    },
+    breadcrumbContainer: {
+        cursor: "pointer",
     },
     listHeader: {
         paddingTop: "3em",
@@ -74,28 +77,30 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#0070e0",
         color: "white"
     },
+    activeCrumb: {
+        color: "black"
+    }
 }));
 
 const MoveFolder = (props) => {
     const dispatch = useDispatch();
-    const initialId = props.folder ? props.folder.parentId : props.file.folderId
+    const initialId = props.folder ? props.folder.parentId : props.file.folderId;
+    const targetFolderId = props.folder ? props.folder.id : props.file.folderId;
     const [currentFolder, setCurrentFolder] = useState(initialId);
     const [breadcrumbs, setBreadcrumbs] = useState();
     const [folders, setFolders] = useState();
     const [destination, setDestination] = useState();
+    const [activeId, setActveId] = useState(initialId);
 
     const handleCancel = () => {
         setCurrentFolder(initialId);
+        setDestination(initialId);
         props.onClose();
     }
 
     // const handleSubmit = () => {
 
     // }
-
-    // useEffect(() => {
-    //     setDestination(initialId)
-    // },[]);
 
     useEffect(() => {
         // const { authentication: { token } } = getState();
@@ -126,7 +131,13 @@ const MoveFolder = (props) => {
                 setDestination(currentFolder);
             }
         })()
-    }, [currentFolder]);
+    }, []);
+
+    const handleFolderChange = (id) => {
+        setDestination(id);
+        setCurrentFolder(id);
+        setActveId(id);
+    };
 
     const classes = useStyles();
 
@@ -153,8 +164,12 @@ const MoveFolder = (props) => {
                         <Breadcrumbs separator="›" aria-label="breadcrumb">
                             {breadcrumbs.map(folder => {
                                 return (
-                                <Box onClick={() => setCurrentFolder(folder.id)} key={folder.id}>
+                                <Box className={classes.breadcrumbContainer} onClick={() => handleFolderChange(folder.id)} key={folder.id}>
+                                    {activeId == folder.id ?
+                                    <Typography className={classes.activeCrumb} variant="subtitle2">{folder.name}</Typography>
+                                    :
                                     <Typography variant="subtitle2">{folder.name}</Typography>
+                                    }
                                 </Box>
                                 )
                             })}
@@ -164,7 +179,7 @@ const MoveFolder = (props) => {
                         {Object.values(folders).map(folder => {
                             return (
                             <Box key={folder.id}>
-                                <Box className={classes.folderListItem}>
+                                <Box className={classes.folderListItem} onClick={() => setDestination(folder.id)}>
                                     <Box className={classes.nameAndIcon}>
                                         <Box className={classes.icon}>
                                             <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
@@ -181,7 +196,7 @@ const MoveFolder = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button color="other" variant="contained" disableElevation onClick={handleCancel}>Cancel</Button>
-                    <Button className={classes.moveButton} variant="contained" disableElevation disabled={destination == initialId}>Move</Button>
+                    <Button className={classes.moveButton} variant="contained" disableElevation disabled={destination == initialId || destination == targetFolderId}>Move</Button>
                 </DialogActions>
             </Dialog>
         </div>
