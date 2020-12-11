@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const FolderView = () => {
+const FolderView = ({ isDeleted }) => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
     const [clickedFolder, setClickedFolder] = useState(null);
@@ -145,9 +145,13 @@ const FolderView = () => {
                                     </Box>
                                 </Link>
                             }
+                            {isDeleted ?
+                            null
+                            :
                             <Box className={classes.ellipsisContainer}>
                                 <MoreButton folder={folder} setFolderName={setFolderName} setClickedFolder={setClickedFolder}/>
                             </Box>
+                            }
                         </Box>
                         <Divider />
                     </Box>
@@ -180,9 +184,13 @@ const FolderView = () => {
                                     </Box>
                                 </a>
                             }
+                            {isDeleted ?
+                            null
+                            :
                             <Box className={classes.ellipsisContainer}>
                                 <MoreButton file={file} setFileName={setFileName} setClickedFile={setClickedFile}/>
                             </Box>
+                            }
                         </Box>
                         <Divider />
                     </Box>

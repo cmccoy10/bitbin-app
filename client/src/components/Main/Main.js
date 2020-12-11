@@ -1,25 +1,21 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import LeftNavPanel from './LeftNavPanel';
 import RightPanel from './RightPanel/RightPanel';
-import { useEffect } from 'react';
 import "./Main.css"
-import { setCurrentFolder } from '../../store/ducks/currentFolder';
-import { getFiles, getFolders } from '../../store/ducks/folders';
-import { Route, useParams } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Main = () => {
-
+    const deletedId = useSelector(state => state.users.trashBinId)
     return (
         <div className="mainContainer">
             <div className="leftNavPanel">
                 <LeftNavPanel/>
             </div>
-            <Route path="/folders/:id">
+            <Route path="/folders/:id" >
                 <div className="rightPanel">
-                    <RightPanel/>
+                    <RightPanel deletedId={deletedId}/>
                 </div>
             </Route>
         </div>

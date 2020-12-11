@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 const BreadCrumbs = ({ currentFolder }) => {
     const breadcrumbs = useSelector(state => state.breadcrumbs);
-    console.log("BREADCRUMBS\n\n", breadcrumbs)
 
     const classes = useStyles();
     return (
