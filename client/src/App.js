@@ -18,7 +18,6 @@ const App = ({ needLogin, loadToken }) => {
   useEffect(() => {
     setLoaded(true);
     loadToken();
-    dispatch(getUser());
   }, []);
 
   if (!loaded) {
