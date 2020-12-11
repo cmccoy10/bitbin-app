@@ -22,7 +22,6 @@ router.post(
         "isTrashBin": true,
         "isRoot": false,
       })
-    //   .then((trashBin) => user.trashBinId = trashBin.id)
 
       const personalFolder = await Folder.create({
         "name": "Personal",
@@ -31,7 +30,7 @@ router.post(
         "isTrashBin": false,
         "isRoot": true,
       })
-    //   .then((root) => user.personalFolderId = root.id)
+
       await user.update({ "trashBinId": trashBin.id });
       await user.update({ "personalFolderId": personalFolder.id });
 
