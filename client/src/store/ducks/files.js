@@ -65,6 +65,7 @@ export const moveFileLocation = ({ id, folderId }) => async (dispatch, getState)
 }
 
 export const moveFileToDeleted = ({ id, folderId }) => async (dispatch, getState) => {
+    const parentId = getState().users.trashBinId;
     const { authentication: { token } } = getState();
     const response = await fetch(`${apiUrl}/files/${id}/delete`, {
         method: 'DELETE',
@@ -72,7 +73,7 @@ export const moveFileToDeleted = ({ id, folderId }) => async (dispatch, getState
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ folderId }),
+        body: JSON.stringify({ folderId, parentId }),
     });
     if (response.ok) {
         const fileId = await response.json();

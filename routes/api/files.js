@@ -82,9 +82,10 @@ router.post("/",
 
     router.delete("/:id/delete", asyncHandler(async(req, res) => {
         const id = req.params.id;
-        const { folderId } = req.body;
+        const { folderId, parentId } = req.body;
         const file = await File.findByPk(id);
-        await file.update({"folderId": folderId});
+        await file.update({"previousFolderId": folderId});
+        await file.update({"folderId": parentId});
         return res.status(200).json(id);
     }));
 

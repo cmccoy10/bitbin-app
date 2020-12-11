@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
 import { moveFolderToDeleted } from '../../../../../../store/ducks/folders';
+import { moveFileToDeleted } from '../../../../../../store/ducks/files';
 
 
 
@@ -35,7 +36,7 @@ const DeletedFiles = (props) => {
         if (props.folder) {
             dispatch(moveFolderToDeleted({ "childId": props.folder.id }))
         } else if (props.file) {
-            // dispatch() ADD DISPATCH TO MOVE TO DELETED
+            dispatch(moveFileToDeleted({ "id": props.file.id, "folderId": props.file.folderId }));
         }
         props.onClose();
     }
