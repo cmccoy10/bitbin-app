@@ -5,6 +5,7 @@ import { useState } from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import MoveFolder from './modals/MoveFolder';
 import { useSelector } from 'react-redux';
+import DeletedFiles from './modals/DeletedFiles';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,19 +38,25 @@ const useStyles = makeStyles((theme) => ({
 const MoreButton = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [moveOpen, setMoveOpen] = useState(false)
+    const [deleteOpen, setDeleteOpen] = useState(false)
     const token = useSelector(state => state.authentication);
     const file = props.file;
     const folder = props.folder;
 
     const moveItemClick = () => {
         setMoveOpen(true);
-        console.log("INSIDE FUNC - FILE", file)
-        console.log("INSIDE FUNC - FOLDER", folder)
-        console.log("move open ---", moveOpen)
     };
 
     const moveItemClose = () => {
         setMoveOpen(false);
+    };
+
+    const deleteItemClick = () => {
+        setDeleteOpen(true);
+    };
+
+    const deleteItemClose = () => {
+        setDeleteOpen(false);
     };
 
     const handleClick = (event) => {
@@ -83,8 +90,10 @@ const MoreButton = (props) => {
     const handleDeleteOptionClick = () => {
         if (file) {
             props.setClickedFile(file.id);
+            deleteItemClick();
         } else {
             props.setClickedFolder(folder.id);
+            deleteItemClick();
         }
     }
 
@@ -124,6 +133,7 @@ const MoreButton = (props) => {
                 </Box>
             </Popover>
             <MoveFolder token={token} moveOpen={moveOpen} onClose={moveItemClose} folder={folder} file={file}/>
+            <DeletedFiles token={token} deleteOpen={deleteOpen} onClose={deleteItemClose} folder={folder} file={file}/>
         </>
     );
 };

@@ -13,6 +13,8 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { apiUrl } from '../../../../../../config/config';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import { moveFolderLocation } from '../../../../../../store/ducks/folders';
+import { moveFileLocation } from '../../../../../../store/ducks/files';
 
 
 
@@ -58,6 +60,20 @@ const useStyles = makeStyles((theme) => ({
             background: "#e5e5e5",
         },
     },
+    highlightedFolderListItem: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        paddingTop: ".5em",
+        paddingBottom: ".5em",
+        paddingLeft: ".5em",
+        justifyContent: "space-between",
+        cursor: "pointer",
+        "&:hover": {
+            background: "#e5e5e5",
+        },
+        background: "#e5e5e5"
+    },
     breadcrumbContainer: {
         cursor: "pointer",
     },
@@ -97,10 +113,16 @@ const MoveFolder = (props) => {
         setDestination(initialId);
         props.onClose();
     }
-
-    // const handleSubmit = () => {
-
-    // }
+    const handleSubmit = () => {
+        if (props.folder) {
+            dispatch(moveFolderLocation({ "childId": targetFolderId, destination }))
+        } else if (props.file) {
+            dispatch(moveFileLocation({ "id": props.file.id, "folderId": destination }));
+        }
+        setCurrentFolder(initialId);
+        setDestination(initialId);
+        props.onClose();
+    }
 
     useEffect(() => {
         // const { authentication: { token } } = getState();
@@ -155,7 +177,12 @@ const MoveFolder = (props) => {
             >
                 <DialogTitle id="form-dialog-title">
                     <Box className={classes.dialogTitleContainer}>
+                        {props.folder ?
                         <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                        :
+                        <FontAwesomeIcon icon={faFileAlt} size="2x" />
+                        }
+
                         <Typography variant="h6" className={classes.dialogTitle}>{`Move ${props.folder ? props.folder.name : props.file.fileName} to...`}</Typography>
                     </Box>
                 </DialogTitle>
@@ -165,7 +192,7 @@ const MoveFolder = (props) => {
                             {breadcrumbs.map(folder => {
                                 return (
                                 <Box className={classes.breadcrumbContainer} onClick={() => handleFolderChange(folder.id)} key={folder.id}>
-                                    {activeId == folder.id ?
+                                    {activeId === folder.id ?
                                     <Typography className={classes.activeCrumb} variant="subtitle2">{folder.name}</Typography>
                                     :
                                     <Typography variant="subtitle2">{folder.name}</Typography>
@@ -179,6 +206,18 @@ const MoveFolder = (props) => {
                         {Object.values(folders).map(folder => {
                             return (
                             <Box key={folder.id}>
+                                {destination === folder.id && destination !== targetFolderId ?
+                                <Box className={classes.highlightedFolderListItem} onClick={() => setDestination(folder.id)}>
+                                    <Box className={classes.nameAndIcon}>
+                                        <Box className={classes.icon}>
+                                            <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                                        </Box>
+                                        <Box>
+                                            <Typography>{folder.name}</Typography>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                :
                                 <Box className={classes.folderListItem} onClick={() => setDestination(folder.id)}>
                                     <Box className={classes.nameAndIcon}>
                                         <Box className={classes.icon}>
@@ -189,6 +228,7 @@ const MoveFolder = (props) => {
                                         </Box>
                                     </Box>
                                 </Box>
+                                }
                             </Box>
                             )
                         })}
@@ -196,7 +236,11 @@ const MoveFolder = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button color="other" variant="contained" disableElevation onClick={handleCancel}>Cancel</Button>
-                    <Button className={classes.moveButton} variant="contained" disableElevation disabled={destination == initialId || destination == targetFolderId}>Move</Button>
+                    <Button
+                    className={classes.moveButton} variant="contained"
+                    disableElevation disabled={destination === initialId || destination === targetFolderId}
+                    onClick={handleSubmit}
+                    >Move</Button>
                 </DialogActions>
             </Dialog>
         </div>

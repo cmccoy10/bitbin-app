@@ -62,11 +62,30 @@ router.post("/",
         res.json({ file: newFile });
     }));
 
+
     router.put("/:id/editName", asyncHandler(async(req, res) => {
         const { fileName } = req.body;
         const file = await File.findByPk(req.params.id);
         await file.update({ fileName });
         return res.status(200).json(file);
+    }));
+
+
+    router.put("/:id/move", asyncHandler(async(req, res) => {
+        const id = req.params.id;
+        const { folderId } = req.body;
+        const file = await File.findByPk(id);
+        await file.update({"folderId": folderId});
+        return res.status(200).json(id);
+    }));
+
+
+    router.delete("/:id/delete", asyncHandler(async(req, res) => {
+        const id = req.params.id;
+        const { folderId } = req.body;
+        const file = await File.findByPk(id);
+        await file.update({"folderId": folderId});
+        return res.status(200).json(id);
     }));
 
     module.exports = router;

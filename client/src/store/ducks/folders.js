@@ -7,11 +7,13 @@ import { USER_ID } from './users';
 const LOAD_FOLDERS = "bitbin/folders/load";
 const ADD_FOLDER = "bitbin/folders/add";
 const EDIT_FOLDER = "bitbin/folders/edit_name";
+const REMOVE_FOLDER = "bitbin/folders/remove";
 
 // Actions
 export const loadFolders = (folders) => ({ type: LOAD_FOLDERS, folders });
 export const addFolder = (folder) => ({ type: ADD_FOLDER, folder });
 export const editFolderName = (folder) => ({ type: EDIT_FOLDER, folder });
+export const removeFolder = (folderId) => ({ type: REMOVE_FOLDER, folderId });
 
 // Thunks
 export const getFiles = () => async (dispatch, getState) => {
@@ -84,6 +86,41 @@ export const editFolder = ({ id, name }) => async (dispatch, getState) => {
     }
 }
 
+export const moveFolderLocation = ({ childId, destination }) => async (dispatch, getState) => {
+    const { authentication: { token } } = getState();
+    const response = await fetch(`${apiUrl}/folders/${childId}/move`, {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ destination }),
+    });
+    if (response.ok) {
+        const childId = await response.json();
+        dispatch(removeFolder(childId));
+        return;
+    }
+}
+
+export const moveFolderToDeleted = ({ childId }) => async (dispatch, getState) => {
+    const parentId = getState().users.trashBinId;
+    const { authentication: { token } } = getState();
+    const response = await fetch(`${apiUrl}/folders/${childId}/delete`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ parentId }),
+    });
+    if (response.ok) {
+        const childId = await response.json();
+        dispatch(removeFolder(childId));
+        return;
+    }
+}
+
 // Reducer
 export default function reducer(state = {}, action) {
     switch (action.type) {
@@ -98,6 +135,11 @@ export default function reducer(state = {}, action) {
         case EDIT_FOLDER: {
             let newState = { ...state };
             newState[action.folder.id] = action.folder;
+            return newState;
+        }
+        case REMOVE_FOLDER: {
+            let newState = { ...state };
+            delete newState[action.folderId];
             return newState;
         }
         default:

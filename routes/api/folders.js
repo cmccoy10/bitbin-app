@@ -27,7 +27,6 @@ router.get("/:id", asyncHandler(async(req, res) => {
     });
     const folders = {};
     list.forEach(item => {
-        console.log("PARENT ID\n\n", item.parentId, "\n\n")
         if (item.child) {
             folders[item.child.id] =
             {
@@ -84,12 +83,44 @@ router.get("/:id/breadcrumbs", asyncHandler(async(req, res) => {
             "id": response.parent.id,
             "name": response.parent.name
         }
-        console.log("\n\nFolder Id", folder.id, "\n\n")
         breadcrumbs.unshift(folder)
         childId = folder.id;
     }
     return res.status(200).json(breadcrumbs)
 }));
 
+
+router.put("/:id/move", asyncHandler(async(req, res) => {
+    const childId = req.params.id;
+    const { destination } = req.body;
+    const child = await ParentFolder.findOne({
+        where: {
+            childId
+        }
+    });
+    await child.destroy();
+    await ParentFolder.create({ "parentId": destination, childId });
+    return res.status(200).json(childId);
+}));
+
+
+router.delete("/:id/delete", asyncHandler(async(req, res) => {
+    const childId = req.params.id;
+    const { parentId } = req.body;
+    const folder = await Folder.findByPk(childId);
+
+
+    const child = await ParentFolder.findOne({
+        where: {
+            childId
+        },
+    });
+
+    await folder.update({ "previousParentId": child.parentId });
+    await child.destroy();
+
+    await ParentFolder.create({ "parentId": parentId, childId});
+    return res.status(200).json(childId);
+}));
 
 module.exports = router;
