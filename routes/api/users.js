@@ -15,23 +15,25 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({ firstName, lastName, email, hashedPassword });
 
-      Folder.create({
+      const trashBin = await Folder.create({
         "name": "Deleted files",
         "pinned": false,
         "ownerId": user.id,
         "isTrashBin": true,
         "isRoot": false,
-      }).then((trashBin) => user.trashBinId = trashBin.id)
+      })
+    //   .then((trashBin) => user.trashBinId = trashBin.id)
 
-      Folder.create({
+      const personalFolder = await Folder.create({
         "name": "Personal",
         "pinned": false,
         "ownerId": user.id,
         "isTrashBin": false,
         "isRoot": true,
-      }).then((root) => user.personalFolderId = root.id)
-
-      await user.save();
+      })
+    //   .then((root) => user.personalFolderId = root.id)
+      await user.update({ "trashBinId": trashBin.id });
+      await user.update({ "personalFolderId": personalFolder.id });
 
       const token = getUserToken(user);
       res.cookie("token", token);
