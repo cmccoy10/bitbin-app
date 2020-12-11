@@ -5,7 +5,6 @@ import { faArchive } from '@fortawesome/free-solid-svg-icons'
 import { Box, Avatar, Typography } from '@material-ui/core';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { useSelector } from 'react-redux';
 
 
