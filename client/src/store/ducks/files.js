@@ -64,6 +64,23 @@ export const moveFileLocation = ({ id, folderId }) => async (dispatch, getState)
     }
 }
 
+export const restoreFile = ({ id, previousFolderId }) => async (dispatch, getState) => {
+    const { authentication: { token } } = getState();
+    const response = await fetch(`${apiUrl}/files/${id}/restore`, {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ previousFolderId }),
+    });
+    if (response.ok) {
+        const fileId = await response.json();
+        dispatch(removeFile(fileId));
+        return;
+    }
+}
+
 export const moveFileToDeleted = ({ id, folderId }) => async (dispatch, getState) => {
     const parentId = getState().users.trashBinId;
     const { authentication: { token } } = getState();

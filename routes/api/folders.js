@@ -104,6 +104,23 @@ router.put("/:id/move", asyncHandler(async(req, res) => {
 }));
 
 
+router.put("/:id/restore", asyncHandler(async(req, res) => {
+    const childId = req.params.id;
+    const folder = await Folder.findByPk(childId);
+
+    const { previousParentId } = req.body;
+    const child = await ParentFolder.findOne({
+        where: {
+            childId
+        }
+    });
+    await child.destroy();
+    await folder.update({ "previousParentId": null });
+    await ParentFolder.create({ "parentId": previousParentId, childId });
+    return res.status(200).json(childId);
+}));
+
+
 router.delete("/:id/delete", asyncHandler(async(req, res) => {
     const childId = req.params.id;
     const { parentId } = req.body;

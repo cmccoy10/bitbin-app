@@ -9,8 +9,9 @@ import { TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
-import { createFolder } from '../../../../store/ducks/folders';
+import { createFolder, restoreFolder } from '../../../../store/ducks/folders';
 import { useEffect } from 'react';
+import { restoreFile } from '../../../../store/ducks/files';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +35,12 @@ const RestoreModal = (props) => {
     let file = props.clickedFile;
 
     const handleRestore = () => {
-        // dispatch(createFolder({ name }));
-        // props.onClose();
+        if (folder) {
+            dispatch(restoreFolder({ "childId": folder.id, "previousParentId": folder.previousParentId }));
+        } else {
+            dispatch(restoreFile({ "id": file.id, "previousFolderId": file.previousFolderId }));
+        }
+        props.onClose();
     }
 
     const classes = useStyles();
@@ -49,7 +54,7 @@ const RestoreModal = (props) => {
             >
                 <DialogTitle id="form-dialog-title">
                     <Box className={classes.dialogTitleContainer}>
-                        {props.folder ?
+                        {folder ?
                         <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
                         :
                         <FontAwesomeIcon icon={faFileAlt} size="2x" />
