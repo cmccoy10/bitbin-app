@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArchive } from '@fortawesome/free-solid-svg-icons'
 import { Box, Avatar, Typography } from '@material-ui/core';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
