@@ -1,4 +1,4 @@
-import { apiUrl } from '../../config/config';
+import { apiUrl } from '../../config';
 
 // Types
 const LOAD_USER = "bitbin/users/load";

@@ -11,7 +11,7 @@ import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { apiUrl } from '../../../../../../config/config';
+import { apiUrl } from '../../../../../../config';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import { moveFolderLocation } from '../../../../../../store/ducks/folders';
 import { moveFileLocation } from '../../../../../../store/ducks/files';

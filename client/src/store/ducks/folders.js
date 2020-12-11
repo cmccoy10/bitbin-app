@@ -1,4 +1,4 @@
-import { apiUrl } from '../../config/config';
+import { apiUrl } from '../../config';
 import { loadFiles } from './files';
 import { USER_ID } from './users';
 

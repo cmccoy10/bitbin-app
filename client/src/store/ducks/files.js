@@ -1,4 +1,4 @@
-import { apiUrl } from '../../config/config';
+import { apiUrl } from '../../config';
 
 // Types
 const UPLOAD = "bitbin/files/upload";
