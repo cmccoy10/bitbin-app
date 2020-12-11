@@ -15,7 +15,7 @@ import { restoreFile } from '../../../../store/ducks/files';
 
 
 const useStyles = makeStyles((theme) => ({
-    createButton: {
+    restoreButton: {
       background: "#0070e0",
       color: "white"
     },
@@ -67,7 +67,7 @@ const RestoreModal = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
-                    <Button className={classes.createButton} variant="contained" disableElevation onClick={handleRestore} >Restore</Button>
+                    <Button className={classes.restoreButton} variant="contained" disableElevation onClick={handleRestore} >Restore</Button>
                 </DialogActions>
             </Dialog>
         </div>

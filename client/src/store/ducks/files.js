@@ -25,6 +25,7 @@ export const uploadFile = (data) => async (dispatch, getState) => {
     });
     if (response.ok) {
         const file = await response.json();
+
         dispatch(addFile(file));
         return;
     }

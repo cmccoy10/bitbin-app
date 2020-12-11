@@ -56,10 +56,9 @@ router.post("/",
             fileName: file.originalname,
             itemUrl: req.body.itemUrl,
             folderId: req.body.folderId,
-            pinned: false
         });
 
-        res.json({ file: newFile });
+        res.json(newFile);
     }));
 
 

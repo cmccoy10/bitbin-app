@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload, faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 import NewFolder from './modals/NewFolder';
 import { useState } from 'react';
+import UploadFile from './modals/UploadFile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewDataPanel = () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [uploadOpen, setUploadOpen] = useState(false);
+
     const newFolderClick = () => {
         setOpen(true);
     };
@@ -31,11 +34,19 @@ const NewDataPanel = () => {
         setOpen(false);
     };
 
+    const uploadFileClick = () => {
+        setUploadOpen(true);
+    }
+
+    const uploadFileClose = () => {
+        setUploadOpen(false);
+    }
+
     const classes = useStyles();
 
     return (
         <Box>
-            <Button className={classes.buttonStyle}>
+            <Button className={classes.buttonStyle} onClick={uploadFileClick}>
                 <Box className={classes.newOption}>
                     <FontAwesomeIcon icon={faFileUpload} size="lg" color="#0d2481"/>
                     <Typography className={classes.fontPadding}> Upload file</Typography>
@@ -48,6 +59,7 @@ const NewDataPanel = () => {
                 </Box>
             </Button>
             <NewFolder open={open} onClose={newFolderClose}/>
+            <UploadFile open={uploadOpen} onClose={uploadFileClose}/>
         </Box>
     );
 };
