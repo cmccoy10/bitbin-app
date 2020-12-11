@@ -4,8 +4,6 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';

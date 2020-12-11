@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover, Box, List, Typography } from "@material-ui/core";
+import { Popover, Box, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';

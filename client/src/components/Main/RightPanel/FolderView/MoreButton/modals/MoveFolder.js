@@ -5,12 +5,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { apiUrl } from '../../../../../../config';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import { moveFolderLocation } from '../../../../../../store/ducks/folders';
