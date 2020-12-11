@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import MoreButton from './MoreButton/MoreButton';
 import { editFolder } from '../../../../store/ducks/folders';
 import { editFile } from '../../../../store/ducks/files';
