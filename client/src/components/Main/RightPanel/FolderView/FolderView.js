@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, TextField, Divider } from '@material-ui/core';
 import { useState } from 'react';
@@ -9,6 +9,49 @@ import { Link } from 'react-router-dom';
 import MoreButton from './MoreButton/MoreButton';
 import { editFolder } from '../../../../store/ducks/folders';
 import { editFile } from '../../../../store/ducks/files';
+import { useDropzone } from 'react-dropzone'
+
+
+const hiddenStyle = {
+    disabled: true,
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    borderWidth: 2,
+    borderRadius: 2,
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+}
+
+const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#fafafa',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+
+const activeStyle = {
+    borderColor: '#2196f3'
+};
+
+const acceptStyle = {
+    borderColor: '#00e676'
+};
+
+const rejectStyle = {
+    borderColor: '#ff1744'
+};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +116,25 @@ const FolderView = ({ isDeleted }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject
+      } = useDropzone({accept: 'image/*'});
+
+    const style = useMemo(() => ({
+        ...hiddenStyle,
+        ...(isDragActive ? baseStyle : {}),
+        ...(isDragAccept ? acceptStyle : {}),
+        ...(isDragReject ? rejectStyle : {})
+    }), [
+        isDragActive,
+        isDragReject,
+        isDragAccept
+    ]);
+
     const handleEdit = (e) => {
         if (e.key === "Enter") {
             if (clickedFolder) {
@@ -107,6 +169,11 @@ const FolderView = ({ isDeleted }) => {
 
     return (
         <Box className={classes.folderContainer}>
+            <div className="container">
+                <div {...getRootProps({style})}>
+                    <input {...getInputProps()} />
+                </div>
+            </div>
             <Box className={classes.folderHeader}>
                 <Typography variant="h6">Overview</Typography>
             </Box>
