@@ -4,9 +4,24 @@ const { authenticated } = require("../../auth");
 const asyncHandler = require("express-async-handler");
 const { getUserToken, requireAuth } = require("../../auth");
 const { User, Folder, File, ParentFolder } = require("../../db/models");
-
+const multer = require("multer");
+const upload = multer();
 
 const router = express.Router();
+
+// AWS
+const AWS = require("aws-sdk");
+const { awsKeys } = require("../../config");
+
+// Updating config for S3
+AWS.config.update({
+    secretAccessKey: awsKeys.secretAccessKey,
+    accessKeyId: awsKeys.accessKeyId,
+    region: awsKeys.region
+});
+
+// Constructs a new service object
+const s3 = new AWS.S3();
 
 
 router.get("/:id/files", asyncHandler(async(req, res) => {
@@ -118,6 +133,57 @@ router.put("/:id/restore", asyncHandler(async(req, res) => {
     await folder.update({ "previousParentId": null });
     await ParentFolder.create({ "parentId": previousParentId, childId });
     return res.status(200).json(childId);
+}));
+
+
+router.delete("/:id", asyncHandler(async(req, res) => {
+    const id = req.params.id;
+    // Setting the target folder to delete as the first item to check in the array
+    const children = [id]
+
+    // While there are still child folders
+    while (children.length) {
+        let root = children.shift()
+        // Find all direct files within current root folder
+        const childFiles = await File.findAll({ where: { "folderId": root } });
+        if (childFiles.length) {
+            childFiles.map(async file => {
+                const params = {
+                    Bucket: "bitbin-files",
+                    Key: file.key
+                };
+                // Delete all instances in S3 and Postgres
+                s3.deleteObject(params, function(err, data) {
+                    if (err) {
+                        return res.json(err); // an error occurred
+                    } else {
+                        console.log(data);
+                    }
+                })
+                await file.destroy();
+            });
+        }
+        // Search for all relationships where current root folder is the parent
+        const childFolders = await ParentFolder.findAll({ where: { "parentId": root } });
+        if (!childFolders.length) {
+            // If no child folders then delete the root folder itself
+            const relationship = await ParentFolder.findOne({ where: { "childId": root } });
+            const rootFolder = await Folder.findByPk(root);
+            await relationship.destroy();
+            await rootFolder.destroy();
+        } else {
+            // Otherwise queue up the next child folders to repeat the loop
+            children.unshift(root);
+            childFolders.forEach(folder => {
+                children.unshift(folder.childId)
+            });
+        }
+    }
+
+
+
+
+    return res.status(200).json(id);
 }));
 
 

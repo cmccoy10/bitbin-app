@@ -16,8 +16,12 @@ import { restoreFile } from '../../../../store/ducks/files';
 
 const useStyles = makeStyles((theme) => ({
     restoreButton: {
-      background: "#0070e0",
-      color: "white"
+        background: "#0070e0",
+        color: "white",
+        textTransform: "none",
+    },
+    buttonStyle: {
+        textTransform: "none",
     },
     dialogTitleContainer: {
         display: "flex",
@@ -66,7 +70,7 @@ const RestoreModal = (props) => {
                     <Typography>{`Are you sure you want to restore this ${folder ? "folder" : "file"}?`}</Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
+                    <Button className={classes.buttonStyle} color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
                     <Button className={classes.restoreButton} variant="contained" disableElevation onClick={handleRestore} >Restore</Button>
                 </DialogActions>
             </Dialog>

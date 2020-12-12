@@ -6,6 +6,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import NewFolder from './modals/NewFolder';
 import { useState } from 'react';
 import RestoreModal from './modals/RestoreModal';
+import PermDelete from './modals/PermDelete';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RestorePanel = ({ clickedFolder, clickedFile }) => {
     const [restoreOpen, setRestoreOpen] = useState(false);
+    const [permOpen, setPermOpen] = useState(false);
 
     const restoreItemClick = () => {
         setRestoreOpen(true);
@@ -42,6 +44,14 @@ const RestorePanel = ({ clickedFolder, clickedFile }) => {
 
     const restoreItemClose = () => {
         setRestoreOpen(false);
+    };
+
+    const permItemClick = () => {
+        setPermOpen(true);
+    };
+
+    const permItemClose = () => {
+        setPermOpen(false);
     };
 
     const classes = useStyles();
@@ -54,12 +64,16 @@ const RestorePanel = ({ clickedFolder, clickedFile }) => {
             <Box className={classes.permDeleteContainer}>
                 <Box className={classes.newOption}>
                     <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#0070e0"/>
-                    <Typography className={classes.permDeleteText}> Permanently delete</Typography>
+                    <Typography className={classes.permDeleteText} onClick={permItemClick}> Permanently delete</Typography>
                 </Box>
             </Box>
             {clickedFolder || clickedFile ?
-            <RestoreModal restoreOpen={restoreOpen} onClose={restoreItemClose}
-            clickedFile={clickedFile} clickedFolder={clickedFolder}/>
+            <>
+                <RestoreModal restoreOpen={restoreOpen} onClose={restoreItemClose}
+                clickedFile={clickedFile} clickedFolder={clickedFolder}/>
+                <PermDelete permOpen={permOpen} onClose={permItemClose}
+                clickedFile={clickedFile} clickedFolder={clickedFolder}/>
+            </>
             :
             null
             }

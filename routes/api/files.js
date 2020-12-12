@@ -50,16 +50,52 @@ router.post("/",
 
         const uploadedFile = await promise;
 
+        console.log("UPLOADED FILE\n\n", uploadedFile, "\n\n");
         req.body.itemUrl = uploadedFile.Location;
+        req.body.key = uploadedFile.Key;
 
         const newFile = await File.create({
             fileName: file.originalname,
             itemUrl: req.body.itemUrl,
             folderId: req.body.folderId,
+            key: req.body.key,
         });
 
-        res.json(newFile);
+        return res.json(newFile);
     }));
+
+
+router.delete("/:id",
+    // [...authenticated],
+    asyncHandler(async function (req, res, next) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return next({ status: 422, errors: errors.array() });
+        }
+
+        const file = await File.findByPk(req.params.id);
+
+        // Create params object for S3
+        const params = {
+            Bucket: "bitbin-files",
+            Key: req.body.key
+        };
+
+        s3.deleteObject(params, function(err, data) {
+            if (err) {
+                return res.json(err); // an error occurred
+            } else {
+                console.log(data);
+            }
+        })
+        await file.destroy();
+
+        return res.json(file.id);
+    }));
+
+
+
 
 
     router.put("/:id/editName", asyncHandler(async(req, res) => {

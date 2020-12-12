@@ -16,6 +16,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      key: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       folderId: {
         allowNull: false,
         type: Sequelize.INTEGER,

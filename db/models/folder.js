@@ -32,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     Folder.hasMany(models.ParentFolder, {
         as: "parent",
         foreignKey: "parentId",
-        onDelete: "CASCADE",
-        hooks: true,
+        // onDelete: "CASCADE",
+        // hooks: true,
     });
 
     Folder.hasOne(models.ParentFolder, {
@@ -43,8 +43,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Folder.hasMany(models.File, {
         foreignKey: "folderId",
-        onDelete: "CASCADE",
-        hooks: true,
+        // onDelete: "CASCADE",
+        // hooks: true,
     });
 
     Folder.hasMany(models.SharedFolder, {

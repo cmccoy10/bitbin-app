@@ -9,13 +9,18 @@ import { TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
-import { createFolder } from '../../../../store/ducks/folders';
+import { permDeleteFile } from '../../../../store/ducks/files';
+import { permDeleteFolder } from '../../../../store/ducks/folders';
 
 
 const useStyles = makeStyles((theme) => ({
-    createButton: {
-      background: "#0070e0",
-      color: "white"
+    permButton: {
+        background: "#0070e0",
+        color: "white",
+        textTransform: "none",
+    },
+    buttonStyle: {
+        textTransform: "none",
     },
     dialogTitleContainer: {
         display: "flex",
@@ -28,16 +33,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PermDelete = (props) => {
-    const [name, setName] = useState("");
     const dispatch = useDispatch();
+    let folder = props.clickedFolder;
+    let file = props.clickedFile;
 
-    const handleCreate = () => {
-        dispatch(createFolder({ name }));
+    const handlePermDelete = () => {
+        if (folder) {
+            dispatch(permDeleteFolder({ "id": folder.id }));
+        } else {
+            dispatch(permDeleteFile ({ "id": file.id, "key": file.key }));
+        }
         props.onClose();
-    }
-
-    const updateName = (e) => {
-        setName(e.target.value);
     }
 
     const classes = useStyles();
@@ -45,30 +51,26 @@ const PermDelete = (props) => {
         <div>
             <Dialog
                 fullWidth={true}
-                open={props.open}
-                onClose={props.newFolderClose}
+                open={props.permOpen}
+                onClose={props.permItemClose}
                 aria-labelledby="form-dialog-title"
             >
                 <DialogTitle id="form-dialog-title">
                     <Box className={classes.dialogTitleContainer}>
+                        {folder ?
                         <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
-                        <Typography variant="h6" className={classes.dialogTitle}>Create folder</Typography>
+                        :
+                        <FontAwesomeIcon icon={faFileAlt} size="2x" />
+                        }
+                        <Typography variant="h6" className={classes.dialogTitle}>{`Permanently delete ${folder ? folder.name : file.fileName}`}</Typography>
                     </Box>
                 </DialogTitle>
                 <DialogContent>
-                    <TextField
-                        fullWidth
-                        required
-                        id="outlined-required"
-                        label="Folder name"
-                        onChange={updateName}
-                        variant="outlined"
-                        color="secondary"
-                    />
+                    <Typography>{`This ${folder ? "folder" : "file"} will be gone forever and you won’t be able to restore it.`}</Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
-                    <Button className={classes.createButton} variant="contained" disableElevation onClick={handleCreate} disabled={name === ""}>Create</Button>
+                    <Button className={classes.buttonStyle} color="other" variant="contained" disableElevation onClick={props.onClose}>Cancel</Button>
+                    <Button className={classes.permButton} variant="contained" disableElevation onClick={handlePermDelete}>Permanently delete</Button>
                 </DialogActions>
             </Dialog>
         </div>

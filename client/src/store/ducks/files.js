@@ -82,6 +82,23 @@ export const restoreFile = ({ id, previousFolderId }) => async (dispatch, getSta
     }
 }
 
+export const permDeleteFile = ({ id, key }) => async (dispatch, getState) => {
+    const { authentication: { token } } = getState();
+    const response = await fetch(`${apiUrl}/files/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ key }),
+    });
+    if (response.ok) {
+        const fileId = await response.json();
+        dispatch(removeFile(fileId));
+        return;
+    }
+}
+
 export const moveFileToDeleted = ({ id, folderId }) => async (dispatch, getState) => {
     const parentId = getState().users.trashBinId;
     const { authentication: { token } } = getState();
