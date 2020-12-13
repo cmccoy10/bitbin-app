@@ -10,6 +10,7 @@ import LoginForm from './components/Login/LoginForm';
 import SignUpForm from './components/Login/SignUpForm';
 import { loadToken } from './store/ducks/authentication';
 import { getUser } from './store/ducks/users';
+import Splash from './components/Login/Splash';
 
 const App = ({ needLogin, loadToken }) => {
   const [loaded, setLoaded] = useState(false);
@@ -29,7 +30,7 @@ const App = ({ needLogin, loadToken }) => {
     <CssBaseline />
     <Theme>
       <Switch>
-        <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
+        <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={Splash} />
         <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
         <PrivateRoute path="/" needLogin={needLogin} component={Main} />
         <Redirect to="/" needLogin={needLogin} component={Main}/>

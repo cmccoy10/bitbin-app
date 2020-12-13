@@ -1,0 +1,28 @@
+.splashPageContainer {
+    display: grid;
+    grid-template-rows: 5.5em 1fr;
+    grid-template-columns: auto;
+    background: #fff;
+}
+
+
+.splashBanner {
+    border-bottom: 1px solid #d0d4d9;
+    box-shadow: 0px 1px 1px #d0d4d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.splashBannerLogo {
+    display: flex;
+    align-items: center;
+}
+
+.splashBannerIcon {
+    margin-right: .5em;
+}
+
+.splashContentContainer {
+
+}
