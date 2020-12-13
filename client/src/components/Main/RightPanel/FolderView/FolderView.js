@@ -123,45 +123,6 @@ const FolderView = ({ isDeleted }) => {
             </Box>
             <Divider />
             <Box className={classes.folderListContainer}>
-                {Object.values(folders).map(folder => {
-                    return (
-                    <Box key={folder.id}>
-                        <Box className={classes.folderListItem}>
-                            {folderName && clickedFolder === folder.id ?
-                                <Box className={classes.nameAndIcon}>
-                                    <Box className={classes.icon}>
-                                        <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
-                                    </Box>
-                                    <Box>
-                                        <TextField color="secondary" defaultValue={folderName}
-                                            onKeyPress={handleEdit} onBlur={handleEditCancel}
-                                            onChange={handleChange}/>
-                                    </Box>
-                                </Box>
-                                :
-                                <Link to={`/folders/${folder.id}`} className={classes.navLink}>
-                                    <Box className={classes.nameAndIcon}>
-                                        <Box className={classes.icon}>
-                                            <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
-                                        </Box>
-                                        <Box>
-                                            <Typography>{folder.name}</Typography>
-                                        </Box>
-                                    </Box>
-                                </Link>
-                            }
-                            {isDeleted ?
-                            null
-                            :
-                            <Box className={classes.ellipsisContainer}>
-                                <MoreButton folder={folder} setFolderName={setFolderName} setClickedFolder={setClickedFolder}/>
-                            </Box>
-                            }
-                        </Box>
-                        <Divider />
-                    </Box>
-                    )
-                })}
                 {Object.values(files).map(file => {
                     return (
                     <Box key={file.id}>
@@ -194,6 +155,45 @@ const FolderView = ({ isDeleted }) => {
                             :
                             <Box className={classes.ellipsisContainer}>
                                 <MoreButton file={file} setFileName={setFileName} setClickedFile={setClickedFile}/>
+                            </Box>
+                            }
+                        </Box>
+                        <Divider />
+                    </Box>
+                    )
+                })}
+                {Object.values(folders).map(folder => {
+                    return (
+                    <Box key={folder.id}>
+                        <Box className={classes.folderListItem}>
+                            {folderName && clickedFolder === folder.id ?
+                                <Box className={classes.nameAndIcon}>
+                                    <Box className={classes.icon}>
+                                        <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                                    </Box>
+                                    <Box>
+                                        <TextField color="secondary" defaultValue={folderName}
+                                            onKeyPress={handleEdit} onBlur={handleEditCancel}
+                                            onChange={handleChange}/>
+                                    </Box>
+                                </Box>
+                                :
+                                <Link to={`/folders/${folder.id}`} className={classes.navLink}>
+                                    <Box className={classes.nameAndIcon}>
+                                        <Box className={classes.icon}>
+                                            <FontAwesomeIcon icon={faFolder} size="2x" color="#91ceff"/>
+                                        </Box>
+                                        <Box>
+                                            <Typography>{folder.name}</Typography>
+                                        </Box>
+                                    </Box>
+                                </Link>
+                            }
+                            {isDeleted ?
+                            null
+                            :
+                            <Box className={classes.ellipsisContainer}>
+                                <MoreButton folder={folder} setFolderName={setFolderName} setClickedFolder={setClickedFolder}/>
                             </Box>
                             }
                         </Box>

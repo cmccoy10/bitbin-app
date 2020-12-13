@@ -55,7 +55,7 @@ const RightPanel = ({ deletedId }) => {
             </div>
             }
             {isDeleted ?
-            <div className="newDataPanelContainer">
+            <div className="restorePanelContainer">
                 <RestorePanel clickedFolder={clickedFolder} clickedFile={clickedFile}/>
             </div>
             :

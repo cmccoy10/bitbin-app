@@ -27,6 +27,11 @@
     /* border: thin solid black */
 }
 
+.restorePanelContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .dropzoneContainer {
     position: absolute;
     width: 100%;

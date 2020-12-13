@@ -102,6 +102,40 @@ const DeletedFolders = ({ isDeleted, setClickedFolder, setClickedFile, clickedFi
             </Box>
             <Divider />
             <Box className={classes.folderListContainer}>
+                {Object.values(files).map(file => {
+                    return (
+                    <Box key={file.id}>
+                        {clickedFile === file ?
+                        <Box className={classes.highlightedListItem}
+                        onClick={() => handleClick("file", file)}
+                        >
+                            <Box className={classes.nameAndIcon}>
+                                <Box className={classes.icon}>
+                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                                </Box>
+                                <Box>
+                                    <Typography>{file.fileName}</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                        :
+                        <Box className={classes.folderListItem}
+                        onClick={() => handleClick("file", file)}
+                        >
+                            <Box className={classes.nameAndIcon}>
+                                <Box className={classes.icon}>
+                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                                </Box>
+                                <Box>
+                                    <Typography>{file.fileName}</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                        }
+                        <Divider />
+                    </Box>
+                    )
+                })}
                 {Object.values(folders).map(folder => {
                     return (
                     <Box key={folder.id}>
@@ -133,40 +167,6 @@ const DeletedFolders = ({ isDeleted, setClickedFolder, setClickedFile, clickedFi
                         </Box>
                         }
 
-                        <Divider />
-                    </Box>
-                    )
-                })}
-                {Object.values(files).map(file => {
-                    return (
-                    <Box key={file.id}>
-                        {clickedFile === file ?
-                        <Box className={classes.highlightedListItem}
-                        onClick={() => handleClick("file", file)}
-                        >
-                            <Box className={classes.nameAndIcon}>
-                                <Box className={classes.icon}>
-                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
-                                </Box>
-                                <Box>
-                                    <Typography>{file.fileName}</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                        :
-                        <Box className={classes.folderListItem}
-                        onClick={() => handleClick("file", file)}
-                        >
-                            <Box className={classes.nameAndIcon}>
-                                <Box className={classes.icon}>
-                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
-                                </Box>
-                                <Box>
-                                    <Typography>{file.fileName}</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                        }
                         <Divider />
                     </Box>
                     )
