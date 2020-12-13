@@ -2,7 +2,7 @@
 
 Bitbin is a file hosting service designed to keep you organized. Users have the ability to upload individual files or entire directories with the ability to keep them separated in unique folders.
 
-Check out the app: [Live Demo]()
+Check out the app: [Live Demo](https://bitbin-app.herokuapp.com/)
 
 ### Technologies Used
 
