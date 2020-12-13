@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, TextField, Divider } from '@material-ui/core';
 import { useState } from 'react';
@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import MoreButton from './MoreButton/MoreButton';
 import { editFolder } from '../../../../store/ducks/folders';
 import { editFile } from '../../../../store/ducks/files';
+import Dropzone from './Dropzone';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: "3em",
         width: "100%",
         height: "100%",
+        position: "relative"
     },
     folderHeader: {
         width: "100%",
@@ -60,18 +63,21 @@ const useStyles = makeStyles((theme) => ({
     ellipsisContainer: {
         paddingRight: ".5em",
     },
+
 }));
 
 
 const FolderView = ({ isDeleted }) => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
+    const currentFolder = useSelector(state => state.currentFolder);
     const [clickedFolder, setClickedFolder] = useState(null);
     const [clickedFile, setClickedFile] = useState(null);
     const [folderName, setFolderName] = useState(null);
     const [fileName, setFileName] = useState(null);
     const dispatch = useDispatch();
     const classes = useStyles();
+
 
     const handleEdit = (e) => {
         if (e.key === "Enter") {

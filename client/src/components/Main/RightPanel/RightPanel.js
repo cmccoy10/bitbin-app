@@ -12,6 +12,7 @@ import { getBreadcrumbs } from '../../../store/ducks/breadcrumbs';
 import { useState } from 'react';
 import RestorePanel from './RestorePanel';
 import DeletedFolders from './DeletedFolders.js/DeletedFolders';
+import Dropzone from './FolderView/Dropzone';
 
 
 const RightPanel = ({ deletedId }) => {
@@ -47,6 +48,9 @@ const RightPanel = ({ deletedId }) => {
             </div>
             :
             <div className="folderViewContainer">
+                {/* <div className="dropzoneContainer">
+                    <Dropzone />
+                </div> */}
                 <FolderView currentFolder={currentFolder}/>
             </div>
             }

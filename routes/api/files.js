@@ -50,7 +50,6 @@ router.post("/",
 
         const uploadedFile = await promise;
 
-        console.log("UPLOADED FILE\n\n", uploadedFile, "\n\n");
         req.body.itemUrl = uploadedFile.Location;
         req.body.key = uploadedFile.Key;
 
