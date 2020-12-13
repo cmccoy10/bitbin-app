@@ -53,9 +53,6 @@ const UploadFile = (props) => {
         const data = new FormData();
         data.append("file", file);
 
-        console.log("File", file)
-        console.log(data)
-
         dispatch(uploadFile(data));
         props.onClose();
     }

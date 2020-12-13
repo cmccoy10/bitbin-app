@@ -24,8 +24,8 @@ const hiddenStyle = {
 }
 
 const baseStyle = {
-    // display: 'none',
-    // visibility: 'hidden',
+    display: 'none',
+    visibility: 'hidden',
     flex: 1,
     padding: '20px',
     borderWidth: 2,
@@ -78,10 +78,8 @@ const Dropzone = ({ currentFolder }) => {
         const data = new FormData();
         const file = acceptedFiles[0];
         data.append("file", file);
-        console.log("File", file)
-        console.log(data)
-
-        dispatch(uploadFile(data));
+        console.log("dropped")
+        // dispatch(uploadFile(data));
     }, [])
 
     const {
@@ -90,7 +88,7 @@ const Dropzone = ({ currentFolder }) => {
         isDragActive,
         isDragAccept,
         isDragReject
-      } = useDropzone({onDrop});
+      } = useDropzone({onDrop, noClick: true});
 
     const style = useMemo(() => ({
         ...baseStyle,
