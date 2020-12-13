@@ -54,7 +54,9 @@ const LeftNavPanel = () => {
     return (
         <Box className={classes.navContainer}>
             <Box className={classes.logoContainer}>
-                <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
+                <NavLink to={"/"} onClick={handleHome}>
+                    <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
+                </NavLink>
             </Box>
             <Box>
                 <Box className={classes.filesHeader}>
