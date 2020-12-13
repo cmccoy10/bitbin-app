@@ -1,6 +1,6 @@
 .rightPanelContainer {
     display: grid;
-    grid-template-columns: 1fr 17em;
+    grid-template-columns: 1fr 22em;
     grid-template-rows: 8em 1fr;
     height: 100%;
     width: 100%;

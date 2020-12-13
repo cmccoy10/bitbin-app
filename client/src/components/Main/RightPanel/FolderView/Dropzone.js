@@ -6,58 +6,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import { uploadFile } from '../../../../store/ducks/files';
 
 
-const hiddenStyle = {
-    // disabled: true,
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: 'black',
-    borderStyle: 'dashed',
-    outline: 'none',
-    transition: 'border .24s ease-in-out',
-    height: '100%',
-    width: '100%'
-}
-
 const baseStyle = {
-    display: 'none',
-    visibility: 'hidden',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
     padding: '20px',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 2,
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    // backgroundColor: '#fafafa',
-    color: '#bdbdbd',
+    borderColor: '#bdbdbd',
+    borderStyle: 'solid',
+    backgroundColor: '#f2f2f2',
+    color: '#66666696',
     outline: 'none',
     transition: 'border .24s ease-in-out',
-    position: 'absolute',
-    height: '100%',
-    width: '100%'
+    height: '13em',
+    width: '19em'
   };
 
 const activeStyle = {
-    borderColor: '#2196f3',
+    borderColor: 'yellow',
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
     padding: '20px',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 2,
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
+    borderStyle: 'solid',
+    backgroundColor: '#f2f2f2',
+    color: '#0d2481',
     outline: 'none',
     transition: 'border .24s ease-in-out',
-    position: 'absolute',
-    height: '100%',
-    width: '100%'
+    height: '13em',
+    width: '19em'
 };
 
 const acceptStyle = {
@@ -70,7 +49,7 @@ const rejectStyle = {
 
 
 
-const Dropzone = ({ currentFolder }) => {
+const Dropzone = () => {
     // const currentFolder = useSelector(state => state.currentFolder);
     const dispatch = useDispatch();
 
@@ -105,6 +84,7 @@ const Dropzone = ({ currentFolder }) => {
     return (
         <div {...getRootProps({style})}>
             <input {...getInputProps()} />
+            <Typography>Drop a file here to quickly upload</Typography>
         </div>
     );
   }

@@ -113,9 +113,6 @@ const FolderView = ({ isDeleted }) => {
 
     return (
         <Box className={classes.folderContainer}>
-            {/* <div className="dropzoneContainer"> */}
-                    <Dropzone currentFolder={currentFolder}/>
-            {/* </div> */}
             <Box className={classes.folderHeader}>
                 <Typography variant="h6">Overview</Typography>
             </Box>
