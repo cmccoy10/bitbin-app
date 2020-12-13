@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import MoreButton from './MoreButton/MoreButton';
 import { editFolder } from '../../../../store/ducks/folders';
 import { editFile } from '../../../../store/ducks/files';
+import FilePreviewer from 'react-file-previewer';
 
 
 const useStyles = makeStyles((theme) => ({
