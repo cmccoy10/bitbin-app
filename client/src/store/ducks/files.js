@@ -16,6 +16,9 @@ export const removeFile = (fileId) => ({ type: REMOVE_FILE, fileId });
 // Thunks
 export const uploadFile = (data) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
+    const currentFolder = getState().currentFolder;
+    console.log("CURRENT FOLDER ===>", currentFolder)
+    data.append("folderId", currentFolder);
     const response = await fetch(`${apiUrl}/files`, {
         method: "POST",
         headers: {

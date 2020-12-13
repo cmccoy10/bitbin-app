@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
 const UploadFile = (props) => {
     const dispatch = useDispatch();
-    const currentFolder = useSelector(state => state.currentFolder);
 
     const [file, setFile] = useState("");
 
@@ -53,7 +52,6 @@ const UploadFile = (props) => {
         e.preventDefault();
         const data = new FormData();
         data.append("file", file);
-        data.append("folderId", currentFolder);
 
         console.log("File", file)
         console.log(data)

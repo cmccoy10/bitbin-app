@@ -18,9 +18,25 @@
 }
 
 .folderViewContainer {
-    /* border: thin solid black */
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .newDataPanelContainer {
     /* border: thin solid black */
 }
+
+.dropzoneContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* .container {
+    height: 100%;
+    width: 100%;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 2em;
+} */

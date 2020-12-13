@@ -9,49 +9,8 @@ import { Link } from 'react-router-dom';
 import MoreButton from './MoreButton/MoreButton';
 import { editFolder } from '../../../../store/ducks/folders';
 import { editFile } from '../../../../store/ducks/files';
-import { useDropzone } from 'react-dropzone'
+import Dropzone from './Dropzone';
 
-
-const hiddenStyle = {
-    disabled: true,
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
-}
-
-const baseStyle = {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
-  };
-
-const activeStyle = {
-    borderColor: '#2196f3'
-};
-
-const acceptStyle = {
-    borderColor: '#00e676'
-};
-
-const rejectStyle = {
-    borderColor: '#ff1744'
-};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: "3em",
         width: "100%",
         height: "100%",
+        position: "relative"
     },
     folderHeader: {
         width: "100%",
@@ -103,12 +63,14 @@ const useStyles = makeStyles((theme) => ({
     ellipsisContainer: {
         paddingRight: ".5em",
     },
+
 }));
 
 
 const FolderView = ({ isDeleted }) => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
+    const currentFolder = useSelector(state => state.currentFolder);
     const [clickedFolder, setClickedFolder] = useState(null);
     const [clickedFile, setClickedFile] = useState(null);
     const [folderName, setFolderName] = useState(null);
@@ -116,24 +78,6 @@ const FolderView = ({ isDeleted }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject
-      } = useDropzone({accept: 'image/*'});
-
-    const style = useMemo(() => ({
-        ...hiddenStyle,
-        ...(isDragActive ? baseStyle : {}),
-        ...(isDragAccept ? acceptStyle : {}),
-        ...(isDragReject ? rejectStyle : {})
-    }), [
-        isDragActive,
-        isDragReject,
-        isDragAccept
-    ]);
 
     const handleEdit = (e) => {
         if (e.key === "Enter") {
@@ -169,11 +113,9 @@ const FolderView = ({ isDeleted }) => {
 
     return (
         <Box className={classes.folderContainer}>
-            <div className="container">
-                <div {...getRootProps({style})}>
-                    <input {...getInputProps()} />
-                </div>
-            </div>
+            {/* <div className="dropzoneContainer"> */}
+                    <Dropzone currentFolder={currentFolder}/>
+            {/* </div> */}
             <Box className={classes.folderHeader}>
                 <Typography variant="h6">Overview</Typography>
             </Box>
