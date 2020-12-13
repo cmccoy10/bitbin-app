@@ -41,6 +41,7 @@ router.post(
             "id": user.id,
             "firstName": user.firstName,
             "lastName": user.lastName,
+            "email": user.email,
             "avatarUrl": user.avatarUrl,
             "trashBinId": user.trashBinId,
             "personalFolderId": user.personalFolderId
@@ -62,6 +63,7 @@ router.get(
         "id": user.id,
         "firstName": user.firstName,
         "lastName": user.lastName,
+        "email": user.email,
         "avatarUrl": user.avatarUrl,
         "trashBinId": user.trashBinId,
         "personalFolderId": user.personalFolderId
