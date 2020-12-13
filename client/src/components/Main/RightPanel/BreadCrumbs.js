@@ -5,6 +5,7 @@ import { Box, Avatar, Typography } from '@material-ui/core';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import { useSelector } from 'react-redux';
+import UserInfo from './modals/UserInfo';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,12 +52,7 @@ const BreadCrumbs = ({ currentFolder }) => {
             </Box>
             }
             <Box>
-                <Avatar
-                    variant="circular"
-                    className={classes.small}
-                    alt="user icon"
-                    aria-haspopup="true"
-                />
+                <UserInfo />
             </Box>
         </Box>
     );

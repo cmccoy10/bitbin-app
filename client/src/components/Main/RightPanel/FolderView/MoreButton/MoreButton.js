@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
       width: "7em",
       display: "flex",
       flexDirection: "column",
-    //   justifyContent: "space-evenly",
       paddingTop: "1em",
       paddingBottom: "1em"
     },

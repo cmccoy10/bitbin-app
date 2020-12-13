@@ -56,23 +56,20 @@ const LeftNavPanel = () => {
             <Box className={classes.logoContainer}>
                 <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
             </Box>
-            <Box className={classes.homeContainer}>
-                <NavLink to={"/"} color="#000" className={classes.navLink} onClick={handleHome}>
-                    <Typography variant="h6" className={classes.homeLink}>Home</Typography>
-                </NavLink>
-            </Box>
-            <Box className={classes.filesHeader}>
-                <Typography variant="subtitle2" className={classes.listColor}>Files</Typography>
-            </Box>
             <Box>
                 <Box className={classes.filesHeader}>
+                    <NavLink to={"/"} color="#000" className={classes.navLink} onClick={handleHome} activeStyle={{fontWeight: "bold"}}>
+                        <Typography variant="h6" className={classes.listColor}>Home</Typography>
+                    </NavLink>
+                </Box>
+                <Box className={classes.filesHeader}>
                     <NavLink to={`/folders/${user.personalFolderId}`} className={classes.navLink}>
-                        <Typography className={classes.listColor}>All files</Typography>
+                        <Typography variant="h6" className={classes.listColor}>All files</Typography>
                     </NavLink>
                 </Box>
                 <Box className={classes.filesHeader}>
                     <NavLink to={`/folders/${user.trashBinId}`} className={classes.navLink}>
-                        <Typography className={classes.listColor}>Deleted files</Typography>
+                        <Typography variant="h6" className={classes.listColor}>Deleted files</Typography>
                     </NavLink>
                 </Box>
             </Box>
