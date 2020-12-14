@@ -33,6 +33,8 @@ const RightPanel = ({ deletedId }) => {
         } else {
             setIsDeleted(false);
         }
+        setClickedFile(null);
+        setClickedFolder(null);
     }, [id]);
 
     return (

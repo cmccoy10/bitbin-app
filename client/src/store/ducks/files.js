@@ -17,7 +17,14 @@ export const removeFile = (fileId) => ({ type: REMOVE_FILE, fileId });
 export const uploadFile = (data) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
     const currentFolder = getState().currentFolder;
-    data.append("folderId", currentFolder);
+    const personalFolderId = getState().users.personalFolderId;
+
+    if (!currentFolder) {
+        data.append("folderId", personalFolderId);
+    } else {
+        data.append("folderId", currentFolder);
+    }
+
     const response = await fetch(`${apiUrl}/files`, {
         method: "POST",
         headers: {

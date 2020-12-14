@@ -52,7 +52,11 @@ export const getFolders = () => async (dispatch, getState) => {
 
 export const createFolder = ({ name }) => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
-    const parentId = getState().currentFolder;
+    let parentId = getState().currentFolder;
+    const personalFolderId = getState().users.personalFolderId;
+
+    if (!parentId) parentId = personalFolderId;
+
     const ownerId = window.localStorage.getItem(USER_ID);
     const response = await fetch(`${apiUrl}/folders`, {
         method: 'POST',

@@ -30,6 +30,17 @@ const App = ({ needLogin, loadToken }) => {
     <CssBaseline />
     <Theme>
       <Switch>
+      <Route
+        exact
+        path="/"
+        render={() => {
+            return (
+                needLogin === true ?
+                <Redirect to="/splash" /> :
+                <Redirect to="/home" />
+            )
+        }}
+        />
         <Route path='/splash' needLogin={needLogin} component={Splash} />
         <PrivateRoute path="/" needLogin={needLogin} component={Main} />
         <Redirect to="/home" needLogin={needLogin} component={Main}/>

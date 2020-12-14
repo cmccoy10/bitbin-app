@@ -58,15 +58,21 @@ const RestorePanel = ({ clickedFolder, clickedFile }) => {
 
     return (
         <Box>
-            <Button className={classes.buttonStyle} onClick={restoreItemClick}>
-                <Typography className={classes.fontPadding}>Restore</Typography>
-            </Button>
-            <Box className={classes.permDeleteContainer}>
-                <Box className={classes.newOption}>
-                    <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#0070e0"/>
-                    <Typography className={classes.permDeleteText} onClick={permItemClick}> Permanently delete</Typography>
+            {clickedFolder || clickedFile ?
+            <Box>
+                <Button className={classes.buttonStyle} onClick={restoreItemClick}>
+                    <Typography className={classes.fontPadding}>Restore</Typography>
+                </Button>
+                <Box className={classes.permDeleteContainer} disabled={!clickedFolder && !clickedFile}>
+                    <Box className={classes.newOption}>
+                        <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#0070e0"/>
+                        <Typography className={classes.permDeleteText} onClick={permItemClick}> Permanently delete</Typography>
+                    </Box>
                 </Box>
             </Box>
+            :
+            null
+            }
             {clickedFolder || clickedFile ?
             <>
                 <RestoreModal restoreOpen={restoreOpen} onClose={restoreItemClose}
