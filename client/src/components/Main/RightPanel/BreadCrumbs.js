@@ -6,6 +6,7 @@ import { Link, NavLink, useParams } from 'react-router-dom';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import { useSelector } from 'react-redux';
 import UserInfo from './modals/UserInfo';
+import "./Breadcrumbs.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,16 +40,16 @@ const BreadCrumbs = ({ currentFolder }) => {
                 <Breadcrumbs separator="›" aria-label="breadcrumb">
                     {breadcrumbs.map(folder => {
                         return (
-                        <Link to={`/folders/${folder.id}`} className={classes.navLink} key={folder.id}>
-                            <Typography variant="h5">{folder.name}</Typography>
-                        </Link>
+                        <NavLink to={`/folders/${folder.id}`} className="breadcrumbsNavLink" key={folder.id} activeStyle={{color: "#000"}}>
+                            {folder.name}
+                        </NavLink>
                         )
                     })}
                 </Breadcrumbs>
             </Box>
             :
-            <Box>
-                <Typography variant="h5">Home</Typography>
+            <Box className="breadcrumbsHome" color="#000">
+                Home
             </Box>
             }
             <Box>

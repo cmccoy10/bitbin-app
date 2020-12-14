@@ -7,6 +7,7 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { faFileAlt, faFileAudio, faFileImage, faFileVideo, faFilePdf, faFileArchive } from '@fortawesome/free-regular-svg-icons'
+import "./HomeActivity.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +75,7 @@ const HomeActivity = ({ recentData }) => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
     const currentFolder = useSelector(state => state.currentFolder);
-    const [clickedRecent, setClickedRecent] = useState(false);
+    const [clickedRecent, setClickedRecent] = useState(true);
     const dispatch = useDispatch();
     const classes = useStyles();
 
@@ -123,14 +124,16 @@ const HomeActivity = ({ recentData }) => {
         <Box className={classes.folderContainer}>
             <Box>
                 <Box className={classes.accordianHeader}>
-                    <Typography>Recent</Typography>
+                    <div className="accordianHeaderTitle">
+                        Recent
+                    </div>
                     {clickedRecent ?
-                    <Box onClick={handleRecentHide} className={classes.recentButton}>
-                        <Typography>Hide</Typography>
+                    <Box onClick={handleRecentHide} className="accordianHeaderButton">
+                        Hide
                     </Box>
                     :
-                    <Box onClick={handleRecentShow} className={classes.recentButton}>
-                        <Typography>Show</Typography>
+                    <Box onClick={handleRecentShow} className="accordianHeaderButton">
+                        Show
                     </Box>
                     }
                 </Box>
@@ -174,7 +177,7 @@ const HomeActivity = ({ recentData }) => {
                 null
                 }
             </Box>
-            <Box className={classes.accordianHeader}>
+            {/* <Box className={classes.accordianHeader}>
                     <Typography>Starred</Typography>
                     {clickedRecent ?
                     <Box onClick={handleRecentHide} className={classes.recentButton}>
@@ -186,7 +189,7 @@ const HomeActivity = ({ recentData }) => {
                     </Box>
                     }
                 </Box>
-                <Divider />
+                <Divider /> */}
         </Box>
     )
 };
