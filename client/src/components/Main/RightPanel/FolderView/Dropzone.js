@@ -50,15 +50,13 @@ const rejectStyle = {
 
 
 const Dropzone = () => {
-    // const currentFolder = useSelector(state => state.currentFolder);
     const dispatch = useDispatch();
 
     const onDrop = useCallback(acceptedFiles => {
         const data = new FormData();
         const file = acceptedFiles[0];
         data.append("file", file);
-        console.log("dropped")
-        // dispatch(uploadFile(data));
+        dispatch(uploadFile(data));
     }, [])
 
     const {
