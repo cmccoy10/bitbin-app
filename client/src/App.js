@@ -32,7 +32,7 @@ const App = ({ needLogin, loadToken }) => {
       <Switch>
         <Route path='/splash' needLogin={needLogin} component={Splash} />
         <PrivateRoute path="/" needLogin={needLogin} component={Main} />
-        <Redirect to="/" needLogin={needLogin} component={Main}/>
+        <Redirect to="/home" needLogin={needLogin} component={Main}/>
       </Switch>
     </Theme>
   </BrowserRouter>

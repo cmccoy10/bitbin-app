@@ -3,7 +3,7 @@ import "./RightPanel.css"
 import NewDataPanel from './NewDataPanel';
 import BreadCrumbs from './BreadCrumbs';
 import FolderView from './FolderView/FolderView';
-import { useParams } from 'react-router-dom';
+import { Route, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFiles, getFolders } from '../../../store/ducks/folders';
 import { useEffect } from 'react';
@@ -40,29 +40,36 @@ const RightPanel = ({ deletedId }) => {
             <div className="breadCrumbsContainer">
                 <BreadCrumbs currentFolder={currentFolder} isDeleted={isDeleted}/>
             </div>
-            {isDeleted ?
-            <div className="folderViewContainer">
-                <DeletedFolders setClickedFile={setClickedFile}
-                setClickedFolder={setClickedFolder} clickedFile={clickedFile}
-                clickedFolder={clickedFolder} isDeleted={isDeleted}/>
-            </div>
-            :
-            <div className="folderViewContainer">
-                {/* <div className="dropzoneContainer">
-                    <Dropzone />
-                </div> */}
-                <FolderView currentFolder={currentFolder}/>
-            </div>
-            }
-            {isDeleted ?
-            <div className="restorePanelContainer">
-                <RestorePanel clickedFolder={clickedFolder} clickedFile={clickedFile}/>
-            </div>
-            :
-            <div className="newDataPanelContainer">
-                <NewDataPanel currentFolder={currentFolder}/>
-            </div>
-            }
+            <Route path="/home">
+                <div>
+
+                </div>
+                <div className="newDataPanelContainer">
+                    <NewDataPanel currentFolder={currentFolder}/>
+                </div>
+            </Route>
+            <Route path="/folders/:id">
+                {isDeleted ?
+                <div className="folderViewContainer">
+                    <DeletedFolders setClickedFile={setClickedFile}
+                    setClickedFolder={setClickedFolder} clickedFile={clickedFile}
+                    clickedFolder={clickedFolder} isDeleted={isDeleted}/>
+                </div>
+                :
+                <div className="folderViewContainer">
+                    <FolderView currentFolder={currentFolder}/>
+                </div>
+                }
+                {isDeleted ?
+                <div className="restorePanelContainer">
+                    <RestorePanel clickedFolder={clickedFolder} clickedFile={clickedFile}/>
+                </div>
+                :
+                <div className="newDataPanelContainer">
+                    <NewDataPanel currentFolder={currentFolder}/>
+                </div>
+                }
+            </Route>
         </div>
     );
 };

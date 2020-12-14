@@ -54,13 +54,13 @@ const LeftNavPanel = () => {
     return (
         <Box className={classes.navContainer}>
             <Box className={classes.logoContainer}>
-                <NavLink to={"/"} onClick={handleHome}>
+                <NavLink to={"/home"} onClick={handleHome}>
                     <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
                 </NavLink>
             </Box>
             <Box>
                 <Box className={classes.filesHeader}>
-                    <NavLink to={"/"} color="#000" className={classes.navLink} onClick={handleHome} activeStyle={{fontWeight: "bold"}}>
+                    <NavLink to={"/home"} color="#000" className={classes.navLink} onClick={handleHome} activeStyle={{fontWeight: "bold"}}>
                         <Typography variant="h6" className={classes.listColor}>Home</Typography>
                     </NavLink>
                 </Box>

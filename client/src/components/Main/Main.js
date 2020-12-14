@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getUser } from '../../store/ducks/users';
+import RightHomePanel from './RightPanel/RightHomePanel';
 
 
 const Main = () => {
@@ -21,6 +22,11 @@ const Main = () => {
             <div className="leftNavPanel">
                 <LeftNavPanel/>
             </div>
+            <Route path="/home">
+                <div className="rightPanel">
+                    <RightHomePanel deletedId={deletedId}/>
+                </div>
+            </Route>
             <Route path="/folders/:id" >
                 <div className="rightPanel">
                     <RightPanel deletedId={deletedId}/>
