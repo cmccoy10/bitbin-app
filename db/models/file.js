@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    mimetype: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
     folderId: {
         allowNull: false,
         type: DataTypes.INTEGER,

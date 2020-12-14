@@ -20,6 +20,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      mimetype: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       folderId: {
         allowNull: false,
         type: Sequelize.INTEGER,

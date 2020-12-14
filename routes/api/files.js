@@ -58,6 +58,7 @@ router.post("/",
             itemUrl: req.body.itemUrl,
             folderId: req.body.folderId,
             key: req.body.key,
+            mimetype: file.mimetype
         });
 
         return res.json(newFile);
