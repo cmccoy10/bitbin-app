@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   createAccountLink: {
       marginTop: ".5em",
+      color: "#0061ff"
   },
   navLink: {
     textDecoration: "none",
@@ -48,12 +49,14 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #0c6ebe",
     color: "white" ,
     fontSize: "1em",
-    marginLeft: ".5em"
+    marginLeft: ".5em",
+    fontWeight: "700"
   },
   demoButton: {
     textTransform: "none",
     width: "6em",
-    fontSize: "1em"
+    fontSize: "1em",
+    fontWeight: "700"
   },
   buttonContainer: {
       display: "flex",
@@ -100,7 +103,7 @@ const LoginForm = () => {
       <Box className={classes.bodyContainer}>
         <Box className={classes.formHeader}>
           <Typography variant="h5">Sign In</Typography>
-          <NavLink to={"/splash/signup"} color="#000" className={classes.navLink}>
+          <NavLink to={"/splash/signup"} color="#0061ff" className={classes.navLink}>
             <Typography variant="subtitle2" className={classes.createAccountLink}>or create an account</Typography>
           </NavLink>
         </Box>
@@ -115,7 +118,6 @@ const LoginForm = () => {
                 size="small"
                 onChange={updateProperty(setEmail)}
                 variant="outlined"
-                width="100%"
                 color="secondary"
                 className={classes.textfield}
               />

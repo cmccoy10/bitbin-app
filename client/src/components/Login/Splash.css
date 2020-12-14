@@ -19,6 +19,10 @@
     align-items: center;
 }
 
+.splashBannerFont {
+    font-weight: 700;
+}
+
 .splashBannerIcon {
     margin-right: .5em;
 }

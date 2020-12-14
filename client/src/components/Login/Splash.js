@@ -19,7 +19,7 @@ const Splash = () => {
                     <div className="splashBannerIcon">
                         <FontAwesomeIcon icon={faArchive} size="3x" color="#0062ff"/>
                     </div>
-                    <Typography variant="h4">Bitbin</Typography>
+                    <Typography className="splashBannerFont" variant="h4">Bitbin</Typography>
                 </div>
             </div>
             <div className="splashContentContainer">
