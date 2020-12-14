@@ -61,7 +61,12 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "row",
         alignItems: "center",
     },
-
+    recentDataList: {
+        marginTop: "1em"
+    },
+    recentButton: {
+        cursor: "pointer"
+    }
 }));
 
 
@@ -69,13 +74,17 @@ const HomeActivity = ({ recentData }) => {
     const folders = useSelector(state => state.folders);
     const files = useSelector(state => state.files);
     const currentFolder = useSelector(state => state.currentFolder);
-    const [clickedFolder, setClickedFolder] = useState(null);
-    const [clickedFile, setClickedFile] = useState(null);
-    const [folderName, setFolderName] = useState(null);
-    const [fileName, setFileName] = useState(null);
+    const [clickedRecent, setClickedRecent] = useState(false);
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const handleRecentShow = () => {
+        setClickedRecent(true)
+    }
+
+    const handleRecentHide = () => {
+        setClickedRecent(false)
+    }
 
     if (!recentData) return null
 
@@ -115,9 +124,18 @@ const HomeActivity = ({ recentData }) => {
             <Box>
                 <Box className={classes.accordianHeader}>
                     <Typography>Recent</Typography>
-                    <Typography>Show</Typography>
+                    {clickedRecent ?
+                    <Box onClick={handleRecentHide} className={classes.recentButton}>
+                        <Typography>Hide</Typography>
+                    </Box>
+                    :
+                    <Box onClick={handleRecentShow} className={classes.recentButton}>
+                        <Typography>Show</Typography>
+                    </Box>
+                    }
                 </Box>
-                <Divider />
+                <Divider className={classes.recentDataList}/>
+                {clickedRecent ?
                 <Box>
                     {recentData.map(data => {
                         return (
@@ -152,10 +170,23 @@ const HomeActivity = ({ recentData }) => {
                         )
                     })}
                 </Box>
+                :
+                null
+                }
             </Box>
-            <Box>
-
-            </Box>
+            <Box className={classes.accordianHeader}>
+                    <Typography>Starred</Typography>
+                    {clickedRecent ?
+                    <Box onClick={handleRecentHide} className={classes.recentButton}>
+                        <Typography>Hide</Typography>
+                    </Box>
+                    :
+                    <Box onClick={handleRecentShow} className={classes.recentButton}>
+                        <Typography>Show</Typography>
+                    </Box>
+                    }
+                </Box>
+                <Divider />
         </Box>
     )
 };
