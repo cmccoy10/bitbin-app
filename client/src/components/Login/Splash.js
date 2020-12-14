@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import "./Splash.css";
-import { faArchive } from '@fortawesome/free-solid-svg-icons'
+import { faArchive, faBoxOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
@@ -17,7 +17,7 @@ const Splash = () => {
             <div className="splashBanner">
                 <div className="splashBannerLogo">
                     <div className="splashBannerIcon">
-                        <FontAwesomeIcon icon={faArchive} size="3x" color="#0062ff"/>
+                        <FontAwesomeIcon icon={faBoxOpen} size="3x" color="#0062ff"/>
                     </div>
                     <p className="splashBannerFont">Bitbin</p>
                 </div>

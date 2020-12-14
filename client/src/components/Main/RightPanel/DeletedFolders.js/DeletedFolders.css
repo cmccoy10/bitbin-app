@@ -10,11 +10,3 @@
     padding-bottom: .5em;
     border-bottom: 1px solid #e6e8eb;
 }
-
-.ellipsis {
-    border: none,
-}
-
-.ellipsis:hover {
-    cursor: pointer;
-}

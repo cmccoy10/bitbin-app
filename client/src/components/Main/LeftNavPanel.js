@@ -2,7 +2,7 @@ import React from 'react';
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArchive } from '@fortawesome/free-solid-svg-icons'
+import { faArchive, faBoxOpen } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,7 +58,7 @@ const LeftNavPanel = () => {
         <Box className={classes.navContainer}>
             <Box className={classes.logoContainer}>
                 <NavLink to={"/home"} onClick={handleHome}>
-                    <FontAwesomeIcon icon={faArchive} size="2x" color="#0d2481"/>
+                    <FontAwesomeIcon icon={faBoxOpen} size="2x" color="#0d2481"/>
                 </NavLink>
             </Box>
             <Box>

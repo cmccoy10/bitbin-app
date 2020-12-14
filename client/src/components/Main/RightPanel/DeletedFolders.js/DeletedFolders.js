@@ -7,6 +7,7 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons'
 import { faFileAlt, faFileAudio, faFileImage, faFileVideo, faFilePdf, faFileArchive } from '@fortawesome/free-regular-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import "./DeletedFolders.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -124,8 +125,8 @@ const DeletedFolders = ({ isDeleted, setClickedFolder, setClickedFile, clickedFi
 
     return (
         <Box className={classes.folderContainer}>
-            <Box className={classes.folderHeader}>
-                <Typography variant="h6">Overview</Typography>
+            <Box className="folderViewHeader">
+                Overview
             </Box>
             <Box className={classes.listHeader}>
                 <Box>

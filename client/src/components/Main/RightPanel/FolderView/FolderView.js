@@ -11,7 +11,7 @@ import MoreButton from './MoreButton/MoreButton';
 import { editFolder } from '../../../../store/ducks/folders';
 import { editFile } from '../../../../store/ducks/files';
 import Dropzone from './Dropzone';
-
+import "./FolderView.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -145,8 +145,8 @@ const FolderView = ({ isDeleted }) => {
 
     return (
         <Box className={classes.folderContainer}>
-            <Box className={classes.folderHeader}>
-                <Typography variant="h6">Overview</Typography>
+            <Box className="folderViewHeader">
+                Overview
             </Box>
             <Box className={classes.listHeader}>
                 <Box>
