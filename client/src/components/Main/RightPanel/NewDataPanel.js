@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Avatar, Typography, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +6,10 @@ import NewFolder from './modals/NewFolder';
 import { useState } from 'react';
 import UploadFile from './modals/UploadFile';
 import Dropzone from './FolderView/Dropzone';
+import React, {useCallback} from 'react'
+import {useDropzone} from 'react-dropzone'
+import { useDispatch } from 'react-redux';
+import { uploadFile } from '../../../store/ducks/files';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,20 +21,37 @@ const useStyles = makeStyles((theme) => ({
     fontPadding: {
         paddingLeft: ".5em"
     },
-    buttonStyle: {
-        textTransform: "none",
-    },
     buttonContainer: {
         display: "flex",
         flexDirection: "column",
         width: "10em",
         marginTop: "1em",
     },
+    buttonStyle: {
+        width: "fit-content",
+        cursor: "pointer",
+        border: "0",
+        marginBottom: ".5em"
+    },
+    inputReset: {
+        borderWidth: "0px",
+        border: "none",
+    }
 }));
 
 const NewDataPanel = () => {
     const [open, setOpen] = useState(false);
     const [uploadOpen, setUploadOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    const onDrop = useCallback(acceptedFiles => {
+        const data = new FormData();
+        const file = acceptedFiles[0];
+        data.append("file", file);
+        dispatch(uploadFile(data));
+    }, [])
+
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
     const newFolderClick = () => {
         setOpen(true);
@@ -55,21 +75,22 @@ const NewDataPanel = () => {
         <Box>
             <Dropzone />
             <Box className={classes.buttonContainer}>
-                <Button className={classes.buttonStyle} onClick={uploadFileClick}>
+                <div {...getRootProps()} className={classes.buttonStyle}>
+                    <input className={classes.inputReset} {...getInputProps()}/>
                     <Box className={classes.newOption}>
                         <FontAwesomeIcon icon={faFileUpload} size="lg" color="#0d2481"/>
                         <Typography className={classes.fontPadding}> Upload file</Typography>
                     </Box>
-                </Button>
-                <Button className={classes.buttonStyle} onClick={newFolderClick}>
+                </div>
+                <Box className={classes.buttonStyle} onClick={newFolderClick}>
                     <Box className={classes.newOption}>
                         <FontAwesomeIcon icon={faFolderPlus} size="lg" color="#0d2481"/>
                         <Typography className={classes.fontPadding}> New folder</Typography>
                     </Box>
-                </Button>
+                </Box>
             </Box>
             <NewFolder open={open} onClose={newFolderClose}/>
-            <UploadFile open={uploadOpen} onClose={uploadFileClose}/>
+            {/* <UploadFile open={uploadOpen} onClose={uploadFileClose}/> */}
         </Box>
     );
 };

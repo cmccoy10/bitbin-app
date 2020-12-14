@@ -7,6 +7,7 @@ import { Box } from '@material-ui/core';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentFolder } from '../../store/ducks/currentFolder';
+import "./LeftNavPanel.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: "3em"
     },
     navLink: {
-        textDecoration: "none"
+        textDecoration: "none",
+        fontSize: "1.5em",
+        fontWeight: "400",
     },
     homeLink: {
         color: "#000"
@@ -60,18 +63,18 @@ const LeftNavPanel = () => {
             </Box>
             <Box>
                 <Box className={classes.filesHeader}>
-                    <NavLink to={"/home"} color="#000" className={classes.navLink} onClick={handleHome} activeStyle={{fontWeight: "bold"}}>
-                        <Typography variant="h6" className={classes.listColor}>Home</Typography>
+                    <NavLink to={"/home"} className="navLink" onClick={handleHome} activeStyle={{color: "#000"}}>
+                        Home
                     </NavLink>
                 </Box>
                 <Box className={classes.filesHeader}>
-                    <NavLink to={`/folders/${user.personalFolderId}`} className={classes.navLink}>
-                        <Typography variant="h6" className={classes.listColor}>All files</Typography>
+                    <NavLink to={`/folders/${user.personalFolderId}`} className="navLink" activeStyle={{color: "#000"}}>
+                        All files
                     </NavLink>
                 </Box>
                 <Box className={classes.filesHeader}>
-                    <NavLink to={`/folders/${user.trashBinId}`} className={classes.navLink}>
-                        <Typography variant="h6" className={classes.listColor}>Deleted files</Typography>
+                    <NavLink to={`/folders/${user.trashBinId}`} className="navLink" activeStyle={{color: "#000"}}>
+                        Deleted files
                     </NavLink>
                 </Box>
             </Box>
