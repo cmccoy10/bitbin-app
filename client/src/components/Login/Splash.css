@@ -24,5 +24,16 @@
 }
 
 .splashContentContainer {
+    display: flex;
+    flex-direction: row;
+    height: 40em;
+    justify-content: center;
+    align-items: center;
+}
 
+.backgroundImage {
+    background: url("https://cfl.dropboxstatic.com/static/images/empty_states/sign-in-boulder@2x-vfl87XcA-.png") no-repeat;
+    background-size: 100% 100%;
+    height: 28em;
+    width: 28em;
 }

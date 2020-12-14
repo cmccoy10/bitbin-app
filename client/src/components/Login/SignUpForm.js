@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Input, Button, Box, Grid, Typography } from "@material-ui/core";
+import { Input, Button, Box, Grid, Typography, TextField } from "@material-ui/core";
 import { FormControl } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { signUp } from '../../store/ducks/authentication';
 
 const useStyles = makeStyles((theme) => ({
   splashContainer: {
-    width: "100%",
-    height: "93vh",
+    width: "30em",
+    height: "30em",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
@@ -17,11 +17,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "auto",
     width: "auto",
+    flexDirection: "column",
+    alignContent: "space-between"
   },
   formContainer: {
     display: "flex",
-    flexDirection: "column"
-  }
+    flexDirection: "column",
+    width: "25em"
+  },
+  formHeader: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center"
+  },
+  navLink: {
+    textDecoration: "none",
+    cursor: "pointer",
+    color: "black"
+  },
 }));
 
 const SignUpForm = () => {
@@ -51,46 +65,58 @@ const SignUpForm = () => {
   const classes = useStyles();
   return (
     <Box className={classes.splashContainer}>
-      <Grid container className={classes.bodyContainer} direction="column" alignContent="space-between">
-
+      <Grid container className={classes.bodyContainer} direction="column"
+      alignContent="space-between" spacing={3}>
         <Grid item>
-            <Typography variant="h3">Sign Up</Typography>
+            <Typography variant="h6">Sign Up</Typography>
         </Grid>
         <Grid item>
-          <Grid container className={classes.formContainer}>
+          <Grid container className={classes.formContainer} spacing={3}>
             <FormControl>
-              <Input
+              <TextField
                 type='text'
                 placeholder='First Name'
                 value={firstName}
                 onChange={updateProperty(setFirstName)}
                 required
+                variant="outlined"
+                size="small"
               />
-              <Input
+              <TextField
                 type='text'
                 placeholder='Last Name'
                 value={lastName}
                 onChange={updateProperty(setLastName)}
                 required
+                variant="outlined"
+                size="small"
               />
-              <Input
+              <TextField
                 type='email'
                 placeholder='Email'
                 value={email}
                 onChange={updateProperty(setEmail)}
                 required
+                variant="outlined"
+                size="small"
               />
-              <Input
+              <TextField
                 type='password'
                 placeholder='Password'
                 value={password}
                 onChange={updateProperty(setPassword)}
+                required
+                variant="outlined"
+                size="small"
               />
-              <Input
+              <TextField
                 type='password'
                 placeholder='Confirm Password'
                 value={confirmPassword}
                 onChange={updateProperty(setConfirmPassword)}
+                required
+                variant="outlined"
+                size="small"
               />
               </FormControl>
             <Button color="secondary" onClick={handleSubmit}>Sign Up</Button>

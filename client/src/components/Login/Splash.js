@@ -4,9 +4,14 @@ import "./Splash.css";
 import { faArchive } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
+import { useSelector } from 'react-redux';
+import { ProtectedRoute } from '../../util.js/route-util';
+
 
 
 const Splash = () => {
+    const needLogin = useSelector((state) => !state.authentication.token);
     return (
         <div className="splashPageContainer">
             <div className="splashBanner">
@@ -18,7 +23,10 @@ const Splash = () => {
                 </div>
             </div>
             <div className="splashContentContainer">
-                <LoginForm />
+                <div className="backgroundImage">
+                </div>
+                <ProtectedRoute path='/splash/login' exact={true} needLogin={needLogin} component={LoginForm} />
+                <ProtectedRoute path='/splash/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
             </div>
         </div>
     );

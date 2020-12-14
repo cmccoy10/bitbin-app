@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { CssBaseline } from "@material-ui/core";
 import Theme from './components/Theme/Theme';
 import { ProtectedRoute, PrivateRoute } from './util.js/route-util';
@@ -30,8 +30,7 @@ const App = ({ needLogin, loadToken }) => {
     <CssBaseline />
     <Theme>
       <Switch>
-        <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={Splash} />
-        <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
+        <Route path='/splash' needLogin={needLogin} component={Splash} />
         <PrivateRoute path="/" needLogin={needLogin} component={Main} />
         <Redirect to="/" needLogin={needLogin} component={Main}/>
       </Switch>
