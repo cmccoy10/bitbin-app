@@ -13,31 +13,47 @@ import { useState } from 'react';
 import RestorePanel from './RestorePanel';
 import DeletedFolders from './DeletedFolders.js/DeletedFolders';
 import Dropzone from './FolderView/Dropzone';
+import { apiUrl } from '../../../config';
+import HomeActivity from './HomeActivity/HomeActivity';
 
 
-const RightHomePanel = ({ deletedId }) => {
+const RightHomePanel = (props) => {
     const { id } = useParams();
     const currentFolder = useSelector(state => state.currentFolder);
-
+    const userId = useSelector(state => state.users.id);
     // const [clickedFolder, setClickedFolder] = useState(null);
     // const [clickedFile, setClickedFile] = useState(null);
     const [isDeleted, setIsDeleted] = useState(false);
+    const [recentData, setRecentData] = useState();
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         dispatch(setCurrentFolder(Number(id)));
         // dispatch(getFiles())
         // dispatch(getFolders())
         // dispatch(getBreadcrumbs())
-    }, [id]);
+        (async () => {
+            const response = await fetch(`${apiUrl}/users/${userId}/recent`, {
+                headers: {
+                    Authorization: `Bearer ${props.token}`
+                },
+            });
+            if (response.ok) {
+                const sortedData = await response.json();
+                setRecentData(sortedData)
+            }
+        })()
+    }, [userId]);
+
 
     return (
         <div className="rightPanelContainer">
             <div className="breadCrumbsContainer">
                 <BreadCrumbs currentFolder={currentFolder} isDeleted={isDeleted}/>
             </div>
-            <div>
-
+            <div className="folderViewContainer">
+                <HomeActivity recentData={recentData}/>
             </div>
             <div className="newDataPanelContainer">
                 <NewDataPanel currentFolder={currentFolder}/>

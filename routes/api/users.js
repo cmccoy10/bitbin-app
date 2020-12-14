@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 const { asyncHandler, handleValidationErrors, validateEmailAndPassword } = require("../../utils");
 const { getUserToken, requireAuth } = require("../../auth");
 const router = express.Router();
-const { User, Folder } = require("../../db/models");
+const { User, Folder, File, sequelize } = require("../../db/models");
 const bcrypt = require("bcryptjs");
 
 
@@ -70,5 +70,48 @@ router.get(
     }});
   })
 );
+
+router.get("/:id/recent", asyncHandler(async(req, res) => {
+    const ownerId = req.params.id;
+    const folders = await Folder.findAll({
+        where: {
+            ownerId
+        },
+        group: ["Folder.id"],
+        order: [[sequelize.fn('MAX', sequelize.col('createdAt')), 'DESC']],
+        limit: 5
+    });
+    // TOD-DO Need to exclude files/folders that are in "Deleted files" folder
+    const files = await File.findAll({
+        include: [{
+            model: Folder,
+            where: {
+                ownerId
+            },
+            attributes: []
+        }],
+        group: ["File.id", "Folder.id"],
+        order: [[sequelize.fn('MAX', sequelize.col('File.createdAt')), 'DESC']],
+        limit: 5
+    });
+
+    const data = [...folders, ...files];
+
+    const sortedData = data.sort(function (a, b) {
+        const aDate = Date.parse(a.createdAt);
+        const bDate = Date.parse(b.createdAt);
+        if (aDate < bDate) {
+            return 1
+        }
+
+        if (aDate > bDate) {
+            return -1
+        }
+
+        return 0;
+    });
+
+    return res.json(sortedData);
+}))
 
 module.exports = router;

@@ -10,7 +10,8 @@ import RightHomePanel from './RightPanel/RightHomePanel';
 
 
 const Main = () => {
-    const deletedId = useSelector(state => state.users.trashBinId)
+    const deletedId = useSelector(state => state.users.trashBinId);
+    const token = useSelector(state => state.authentication);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const Main = () => {
             </div>
             <Route path="/home">
                 <div className="rightPanel">
-                    <RightHomePanel deletedId={deletedId}/>
+                    <RightHomePanel token={token}/>
                 </div>
             </Route>
             <Route path="/folders/:id" >
