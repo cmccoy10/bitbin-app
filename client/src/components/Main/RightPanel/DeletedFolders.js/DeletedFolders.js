@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, List, Typography, TextField, Divider, IconButton } from '@material-ui/core';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFolder } from '@fortawesome/free-solid-svg-icons'
+import { faFileAlt, faFileAudio, faFileImage, faFileVideo, faFilePdf, faFileArchive } from '@fortawesome/free-regular-svg-icons'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -90,6 +91,37 @@ const DeletedFolders = ({ isDeleted, setClickedFolder, setClickedFile, clickedFi
         }
     }
 
+    function fileImage( mimetype ) {
+        const type = mimetype.split("/");
+        let check = type[0];
+        if (type[1] === "pdf") {
+            check = "pdf"
+        }
+        if (type[1] === "zip") {
+            check = "zip"
+        }
+        return (
+          <div>
+            {(function() {
+              switch (check) {
+                case 'audio':
+                  return <FontAwesomeIcon icon={faFileAudio} size="2x"/>;
+                case 'video':
+                  return <FontAwesomeIcon icon={faFileVideo} size="2x"/>;
+                case 'image':
+                  return <FontAwesomeIcon icon={faFileImage} size="2x"/>;
+                case 'pdf':
+                  return <FontAwesomeIcon icon={faFilePdf} size="2x"/>;
+                case 'zip':
+                  return <FontAwesomeIcon icon={faFileArchive} size="2x"/>;
+                default:
+                  return <FontAwesomeIcon icon={faFileAlt} size="2x"/>;
+              }
+            })()}
+          </div>
+        );
+      }
+
     return (
         <Box className={classes.folderContainer}>
             <Box className={classes.folderHeader}>
@@ -111,7 +143,7 @@ const DeletedFolders = ({ isDeleted, setClickedFolder, setClickedFile, clickedFi
                         >
                             <Box className={classes.nameAndIcon}>
                                 <Box className={classes.icon}>
-                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                                    {fileImage(file.mimetype)}
                                 </Box>
                                 <Box>
                                     <Typography>{file.fileName}</Typography>
@@ -124,7 +156,7 @@ const DeletedFolders = ({ isDeleted, setClickedFolder, setClickedFile, clickedFi
                         >
                             <Box className={classes.nameAndIcon}>
                                 <Box className={classes.icon}>
-                                    <FontAwesomeIcon icon={faFileAlt} size="2x"/>
+                                    {fileImage(file.mimetype)}
                                 </Box>
                                 <Box>
                                     <Typography>{file.fileName}</Typography>

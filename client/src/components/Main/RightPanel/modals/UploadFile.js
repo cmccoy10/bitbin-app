@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFolder, faFileAlt } from '@fortawesome/free-regular-svg-icons'
 import { Box } from '@material-ui/core';
 import { uploadFile } from '../../../../store/ducks/files';
 import CloseIcon from '@material-ui/icons/Close';
