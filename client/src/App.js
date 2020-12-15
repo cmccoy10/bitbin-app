@@ -36,7 +36,7 @@ const App = ({ needLogin, loadToken }) => {
         render={() => {
             return (
                 needLogin === true ?
-                <Redirect to="/splash" /> :
+                <Redirect to="/splash/login" /> :
                 <Redirect to="/home" />
             )
         }}
