@@ -70,18 +70,25 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
       height: "14em",
       justifyContent: "space-evenly"
-  }
+  },
+  errorFont: {
+    color: "red"
+  },
 }));
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // e.preventDefault();
-    dispatch(login(email, password));
+    const response = await dispatch(login(email, password));
+    if (response) {
+        setErrors(response.error.errors);
+    }
   };
 
   const handleDemoSubmit = (e) => {
@@ -107,6 +114,17 @@ const LoginForm = () => {
             <Typography variant="subtitle2" className={classes.createAccountLink}>or create an account</Typography>
           </NavLink>
         </Box>
+          {errors ?
+            <ul className={classes.errorFont}>
+                {errors.map(error => {
+                    return (
+                        <li>{error}</li>
+                    )
+                })}
+            </ul>
+            :
+            null
+          }
         <Box>
           <Box className={classes.formContainer}>
             <form className={classes.formControl}>

@@ -30,6 +30,9 @@ export const signUp = user => async dispatch => {
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID, userObj.id);
     dispatch(setToken(token));
+  } else {
+    const errors = await response.json();
+    return errors;
   }
 }
 
@@ -45,6 +48,9 @@ export const login = (email, password) => async dispatch => {
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID, userObj.id);
     dispatch(setToken(token));
+  } else {
+    const errors = await response.json();
+    return errors;
   }
 };
 

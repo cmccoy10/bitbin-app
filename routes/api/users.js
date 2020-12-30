@@ -1,6 +1,6 @@
 const express = require("express");
 const { check } = require("express-validator");
-const { asyncHandler, handleValidationErrors, validateEmailAndPassword } = require("../../utils");
+const { asyncHandler, handleValidationErrors, validateEmailAndPassword, validateUser, validationResult } = require("../../utils");
 const { getUserToken, requireAuth } = require("../../auth");
 const router = express.Router();
 const { User, Folder, File, sequelize } = require("../../db/models");
@@ -9,8 +9,13 @@ const bcrypt = require("bcryptjs");
 
 router.post(
     "/",
-    validateEmailAndPassword,
+    validateUser,
     asyncHandler(async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next({ status: 422, errors: errors.array() });
+      }
+
       const { firstName, lastName, email, password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({ firstName, lastName, email, hashedPassword });

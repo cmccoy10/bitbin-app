@@ -1,6 +1,6 @@
 const express = require("express");
 const { check } = require("express-validator");
-const { asyncHandler, handleValidationErrors, validateEmailAndPassword } = require("../../utils");
+const { asyncHandler, handleValidationErrors, validateEmailAndPassword, validationResult } = require("../../utils");
 const { getUserToken, requireAuth } = require("../../auth");
 const router = express.Router();
 const { User } = require("../../db/models");
@@ -10,6 +10,11 @@ router.put(
     "/",
     validateEmailAndPassword,
     asyncHandler(async (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next({ status: 422, errors: errors.array() });
+      }
+
       const { email, password } = req.body;
       const user = await User.findOne({
         where: {

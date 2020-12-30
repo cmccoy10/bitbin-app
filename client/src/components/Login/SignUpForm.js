@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
   textfield: {
     width: "100%",
   },
+  errorFont: {
+    color: "red"
+  },
 }));
 
 const SignUpForm = () => {
@@ -70,6 +73,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -77,7 +81,7 @@ const SignUpForm = () => {
     callback(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const newUser = {
       firstName,
       lastName,
@@ -85,7 +89,10 @@ const SignUpForm = () => {
       password,
       confirmPassword,
     };
-    dispatch(signUp(newUser));
+    const response = await dispatch(signUp(newUser));
+    if (response) {
+        setErrors(response.error.errors);
+    }
   };
 
   const classes = useStyles();
@@ -99,6 +106,17 @@ const SignUpForm = () => {
                 <Typography variant="subtitle2" className={classes.createAccountLink}>or log in</Typography>
             </NavLink>
         </Box>
+        {errors ?
+            <ul className={classes.errorFont}>
+                {errors.map(error => {
+                    return (
+                        <li>{error}</li>
+                    )
+                })}
+            </ul>
+            :
+            null
+        }
         <Box>
           <Box className={classes.formContainer}>
             <form className={classes.formControl}>

@@ -31,4 +31,25 @@ const validateEmailAndPassword = [
     handleValidationErrors,
   ];
 
-module.exports = { asyncHandler, handleValidationErrors, validateEmailAndPassword };
+const validateUser = [
+    check("firstName")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a First Name"),
+    check("lastName")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a Last Name"),
+    check("password")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a Password"),
+    check("confirmPassword")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a value for Confirm Password")
+        .custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error("Confirm Password does not match Password");
+        }
+        return true;
+        }),
+    ...validateEmailAndPassword,
+];
+module.exports = { asyncHandler, handleValidationErrors, validateEmailAndPassword, validateUser, validationResult };
