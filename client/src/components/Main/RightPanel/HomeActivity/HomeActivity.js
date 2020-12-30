@@ -145,7 +145,7 @@ const HomeActivity = ({ recentData }) => {
                         <Box key={data.id}>
                             <Box className={classes.folderListItem}>
                                 {data.fileName ?
-                                <a href={data.itemUrl} className={classes.navLink}>
+                                <a href={data.itemUrl} target="_blank" className={classes.navLink}>
                                     <Box className={classes.nameAndIcon}>
                                         <Box className={classes.icon}>
                                             {fileImage(data.mimetype)}

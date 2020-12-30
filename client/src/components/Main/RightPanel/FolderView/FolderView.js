@@ -171,7 +171,7 @@ const FolderView = ({ isDeleted }) => {
                                     </Box>
                                 </Box>
                                 :
-                                <a href={file.itemUrl} className={classes.navLink}>
+                                <a href={file.itemUrl} target="_blank" className={classes.navLink}>
                                     <Box className={classes.nameAndIcon}>
                                         <Box className={classes.icon}>
                                             {fileImage(file.mimetype)}
