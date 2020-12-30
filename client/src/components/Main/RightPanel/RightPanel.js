@@ -23,10 +23,14 @@ const RightPanel = ({ deletedId }) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    useEffect(async () => {
         dispatch(setCurrentFolder(Number(id)));
         dispatch(getFiles())
-        dispatch(getFolders())
+        const response = await dispatch(getFolders());
+        console.log(response)
+        if (response) {
+            window.location.href = "/home"
+        }
         dispatch(getBreadcrumbs())
         if (Number(id) === deletedId) {
             setIsDeleted(true);

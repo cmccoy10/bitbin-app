@@ -47,6 +47,8 @@ export const getFolders = () => async (dispatch, getState) => {
         const folders = await response.json();
         dispatch(loadFolders(folders));
         return;
+    } else {
+        return response;
     }
 }
 
