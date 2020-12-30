@@ -100,13 +100,7 @@ const SignUpForm = () => {
     <Box className={classes.splashContainer}>
       <Box className={classes.bodyContainer} direction="column"
       alignContent="space-between">
-        <Box className={classes.formHeader}>
-            <Typography variant="h6">Create an account</Typography>
-            <NavLink to={"/splash/login"} color="#0061ff" className={classes.navLink}>
-                <Typography variant="subtitle2" className={classes.createAccountLink}>or log in</Typography>
-            </NavLink>
-        </Box>
-        {errors ?
+          {errors ?
             <ul className={classes.errorFont}>
                 {errors.map(error => {
                     return (
@@ -117,6 +111,12 @@ const SignUpForm = () => {
             :
             null
         }
+        <Box className={classes.formHeader}>
+            <Typography variant="h6">Create an account</Typography>
+            <NavLink to={"/splash/login"} color="#0061ff" className={classes.navLink}>
+                <Typography variant="subtitle2" className={classes.createAccountLink}>or log in</Typography>
+            </NavLink>
+        </Box>
         <Box>
           <Box className={classes.formContainer}>
             <form className={classes.formControl}>

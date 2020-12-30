@@ -108,13 +108,7 @@ const LoginForm = () => {
   return (
     <Box className={classes.splashContainer}>
       <Box className={classes.bodyContainer}>
-        <Box className={classes.formHeader}>
-          <Typography variant="h5">Sign In</Typography>
-          <NavLink to={"/splash/signup"} color="#0061ff" className={classes.navLink}>
-            <Typography variant="subtitle2" className={classes.createAccountLink}>or create an account</Typography>
-          </NavLink>
-        </Box>
-          {errors ?
+      {errors ?
             <ul className={classes.errorFont}>
                 {errors.map(error => {
                     return (
@@ -125,6 +119,12 @@ const LoginForm = () => {
             :
             null
           }
+        <Box className={classes.formHeader}>
+          <Typography variant="h5">Sign In</Typography>
+          <NavLink to={"/splash/signup"} color="#0061ff" className={classes.navLink}>
+            <Typography variant="subtitle2" className={classes.createAccountLink}>or create an account</Typography>
+          </NavLink>
+        </Box>
         <Box>
           <Box className={classes.formContainer}>
             <form className={classes.formControl}>
