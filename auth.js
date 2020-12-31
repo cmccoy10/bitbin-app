@@ -26,17 +26,21 @@ const getUserToken = (user) => {
 const restoreUser = (req, res, next) => {
     // token being parsed from request's cookies by the cookie-parser middleware
     // function in app.js:
-    // const { token } = req.cookies;
+    // const { token } = req;
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]
+    const token = authHeader && authHeader.split(' ')[1];
+
+    console.log("\n\n", typeof authHeader, authHeader, "\n\n")
 
     if (!token) {
       // Send a "401 Unauthorized" response status code
+      console.log("\n\nNo token\n\n")
       return res.status(401).end();
     }
 
     return jwt.verify(token, secret, null, async (err, jwtPayload) => {
       if (err) {
+        console.log("\n\nError in verify\n\n")
         err.status = 401;
         return next(err);
       }
@@ -44,10 +48,12 @@ const restoreUser = (req, res, next) => {
       const { id } = jwtPayload.data;
 
       try {
+          console.log("\n\n trying to get user \n\n")
         const user = await User.findByPk(parseInt(id, 10));
         req.user = user
 
       } catch (e) {
+          console.log("\n\nerror", e , "\n\n")
         // remove the token cookie
         res.clearCookie("token");
         return next(e);
@@ -56,10 +62,11 @@ const restoreUser = (req, res, next) => {
       if (!req.user) {
         // Send a "401 Unauthorized" response status code
         // along with removing the token cookie
+        console.log("\n\nNo user\n\n")
         res.clearCookie("token");
         return res.status(401).end();
       }
-
+      console.log("successful return")
       return next();
     });
 };

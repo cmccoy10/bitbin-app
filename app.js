@@ -10,18 +10,12 @@ const routes = require('./routes');
 const app = express();
 
 app.use(logger('dev'));
+app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(cookieParser())
-
-
-// Security Middleware
-app.use(cors({ origin: true }));
 app.use(helmet({ hsts: false }));
-
-
 app.use(routes);
 
 // Serve React Application

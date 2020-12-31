@@ -18,10 +18,12 @@ export const removeFolder = (folderId) => ({ type: REMOVE_FOLDER, folderId });
 // Thunks
 export const getFiles = () => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
+    console.log("token", typeof token)
     const id = getState().currentFolder;
     const response = await fetch(`${apiUrl}/folders/${id}/files`, {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
         },
     });
     if (response.ok) {
@@ -38,17 +40,21 @@ export const getFiles = () => async (dispatch, getState) => {
 export const getFolders = () => async (dispatch, getState) => {
     const { authentication: { token } } = getState();
     const id = getState().currentFolder;
+    console.log("Sending Dispatch")
     const response = await fetch(`${apiUrl}/folders/${id}`, {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
         },
     });
     if (response.ok) {
         const folders = await response.json();
+        // console.log(folders)
         dispatch(loadFolders(folders));
         return;
     } else {
-        return response;
+        console.log(await response.json())
+        window.location.href = "/home"
     }
 }
 

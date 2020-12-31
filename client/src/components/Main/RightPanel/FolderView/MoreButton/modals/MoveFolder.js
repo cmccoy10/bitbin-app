@@ -106,6 +106,8 @@ const MoveFolder = (props) => {
     const [destination, setDestination] = useState();
     const [activeId, setActveId] = useState(initialId);
 
+    console.log("move folder token", props.token.token)
+
     const handleCancel = () => {
         setCurrentFolder(initialId);
         setDestination(initialId);
@@ -127,7 +129,8 @@ const MoveFolder = (props) => {
         (async () => {
             const folderResponse = await fetch(`${apiUrl}/folders/${currentFolder}`, {
                 headers: {
-                    Authorization: `Bearer ${props.token}`
+                    Authorization: `Bearer ${props.token.token}`,
+                    "Content-Type": "application/json"
                 },
             });
             if (folderResponse.ok) {
@@ -142,7 +145,7 @@ const MoveFolder = (props) => {
         (async () => {
             const breadcrumbResponse = await fetch(`${apiUrl}/folders/${currentFolder}/breadcrumbs`, {
                 headers: {
-                    Authorization: `Bearer ${props.token}`
+                    Authorization: `Bearer ${props.token.token}`
                 },
             });
             if (breadcrumbResponse.ok) {
