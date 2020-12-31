@@ -1,2 +1,7 @@
 /* TODO Add site wide styles */
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+#root {
+    width: 100vw;
+    height: 100vh;
+}

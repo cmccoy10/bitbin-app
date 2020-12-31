@@ -35,7 +35,7 @@ router.get("/:id", requireAuth, asyncHandler(async(req, res) => {
     const parentId = req.params.id;
 
     const ownerCheck = await Folder.findOne({where: { id: parentId, ownerId: req.user.id }});
-
+    console.log("OWNER CHECK\n\n", ownerCheck, "\n\n")
     if (!ownerCheck) {
         return res.status(401).end();
     }
