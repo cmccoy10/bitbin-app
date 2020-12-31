@@ -49,12 +49,11 @@ export const getFolders = () => async (dispatch, getState) => {
     });
     if (response.ok) {
         const folders = await response.json();
-        // console.log(folders)
         dispatch(loadFolders(folders));
         return;
     } else {
-        console.log(await response.json())
-        window.location.href = "/home"
+        const res = await response.json();
+        return res;
     }
 }
 

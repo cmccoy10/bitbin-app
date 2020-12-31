@@ -28,13 +28,14 @@ const RightPanel = ({ deletedId }) => {
     })
 
     useEffect(() => {
-        // (async () => {
+        (async () => {
             dispatch(setCurrentFolder(Number(id)));
             dispatch(getFiles())
-            const response = dispatch(getFolders());
-            // if (response) {
-            //     window.location.href = "/home"
-            // }
+            const response = await dispatch(getFolders());
+            console.log('response inside effect', response)
+            if (response) {
+                window.location.href = "/home"
+            }
             dispatch(getBreadcrumbs())
             if (Number(id) === deletedId) {
                 setIsDeleted(true);
@@ -44,7 +45,7 @@ const RightPanel = ({ deletedId }) => {
             setClickedFile(null);
             setClickedFolder(null);
 
-        // })()
+        })()
     }, [id]);
 
     return (

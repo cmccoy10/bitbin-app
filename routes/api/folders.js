@@ -34,10 +34,10 @@ router.get("/:id/files", asyncHandler(async(req, res) => {
 router.get("/:id", requireAuth, asyncHandler(async(req, res) => {
     const parentId = req.params.id;
     // console.log("\n\nUser id",req.user.id, "\n\n")
-    // const ownerCheck = await Folder.findOne({where: { id: parentId, ownerId: req.user.id }});
-    // if (!ownerCheck) {
-    //     return res.status(401).end();
-    // }
+    const ownerCheck = await Folder.findOne({where: { id: parentId, ownerId: req.user.id }});
+    if (!ownerCheck) {
+        return res.status(401).end();
+    }
 
     const list = await ParentFolder.findAll({
         where: {
