@@ -10,7 +10,7 @@
 2. Upload/Remove Files and Folders
     * Utilizes Amazon S3 to store and retrieve data per user
     * Only allows certain file types to be uploaded
-    * Flags items as "deleted" in database which will move their location to
+    * Sets the isTrashBin value to "true"
 3. Drag and Drop
     * Ability to drag a file or folder into a target location to upload data
 4. Move File and Folder Locations
