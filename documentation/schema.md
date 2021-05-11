@@ -27,7 +27,9 @@
 | name           | varchar(50)  | not null              |
 | pinned         | boolean      | not null              |
 | ownerId        | integer      | not null              |
-| isDefault      | boolean      | not null              |
+| isTrashBin     | boolean      | not null              |
+| isRoot         | boolean      | not null              |
+| previousParentId | integer    | nullable              |
 
 ## ParentFolders
 
@@ -46,12 +48,5 @@
 | itemUrl        | varchar      | not null              |
 | folderId       | integer      | not null              |
 | pinned         | boolean      | not null              |
+| previousFolderId | integer    | nullable              |
 
-## DeletedItems
-
-| attribute name | data type    | details               |
-| -------------- | ------------ | --------------------- |
-| id             | integer      | primary key, not null |
-| userId         | integer      | not null              |
-| fileId         | integer      | nullable              |
-| folderId       | integer      | nullable              |
