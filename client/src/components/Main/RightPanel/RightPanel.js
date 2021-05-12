@@ -24,15 +24,10 @@ const RightPanel = ({ deletedId }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
-    })
-
-    useEffect(() => {
         (async () => {
             dispatch(setCurrentFolder(Number(id)));
             dispatch(getFiles())
             const response = await dispatch(getFolders());
-            console.log('response inside effect', response)
             if (response) {
                 window.location.href = "/home"
             }
