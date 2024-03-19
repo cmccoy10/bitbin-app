@@ -17,7 +17,8 @@
     "start": "per-env",
     "start:development": "dotenv nodemon ./bin/www",
     "start:production": "./bin/www",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -38,6 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
+    "patch-package": "^8.0.0",
     "per-env": "^1.0.2",
     "pg": "^8.0.3",
     "sequelize": "^5.21.7",
